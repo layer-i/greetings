@@ -56,18 +56,18 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 #msg h1{font-weight:300;font-size:clamp(34px,10vw,50px);line-height:1.08;letter-spacing:.01em}
 #stage.lightsky #msg{color:#1B1A16;text-shadow:0 1px 14px rgba(255,244,228,.75)}#stage.lightsky #msg p{color:rgba(27,26,22,.82)}#stage.lightsky #scrim{opacity:0}#stage.lightsky .wm{background:#1B1A16}#stage.lightsky #sound svg{stroke:#1B1A16}#stage.lightsky #hint{color:#8E6A15}
 #msg p{font-size:clamp(14px,4vw,17px);line-height:1.55;margin-top:.5em;color:rgba(241,234,218,.9)}
-#dock{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;gap:10px;padding:26px 12px calc(14px + env(safe-area-inset-bottom));background:linear-gradient(180deg,rgba(10,8,6,0),rgba(10,8,6,.5));pointer-events:auto}
+#dock{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:center;align-items:center;gap:8px;padding:12px 12px calc(10px + env(safe-area-inset-bottom));background:linear-gradient(180deg,rgba(10,8,6,0),rgba(10,8,6,.35));pointer-events:auto}
 #hint{margin-top:14px;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--warm);opacity:0;pointer-events:none;text-shadow:none}#hint span{display:inline-block;padding:6px 12px;border-radius:999px;background:rgba(10,8,6,.55);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
-#days{flex:1;display:flex;justify-content:space-around;align-items:center;height:56px;border-radius:999px;background:rgba(18,14,9,.45);border:1px solid rgba(240,206,120,.2);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
-#days button{width:40px;height:52px;display:grid;place-items:center;position:relative}
-#days button .ic{width:28px;height:28px;background-image:var(--icons);background-size:500% 100%;background-repeat:no-repeat;opacity:.62;transform-origin:50% 70%;will-change:transform}
+#days{display:flex;align-items:center;height:44px;padding:0 6px;border-radius:999px;background:rgba(18,14,9,.42);border:1px solid rgba(240,206,120,.18);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+#days button{width:38px;height:44px;display:grid;place-items:center;position:relative}
+#days button .ic{width:22px;height:22px;background-image:var(--icons);background-size:500% 100%;background-repeat:no-repeat;opacity:.62;transform-origin:50% 75%;will-change:transform}
 #days button span{display:none}
 #days button:active .ic{opacity:.9}
 #days button.on .ic{transform:translateY(-3px) scale(1.08);filter:drop-shadow(0 0 12px rgba(240,206,120,.75))}
 
 #fwdRow{display:flex}
-#fwd{display:inline-flex;align-items:center;gap:7px;height:56px;padding:0 14px;border-radius:999px;border:1px solid rgba(201,160,74,.55);background:rgba(142,106,21,.38);color:var(--bone);font-size:14px;font-weight:400;letter-spacing:.03em;text-decoration:none;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
-#fwd svg{width:17px;height:17px}@media (max-width:370px){#fwd{padding:0 12px;gap:5px;font-size:13px}#dock{gap:8px}}
+#fwd{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;border:1px solid rgba(201,160,74,.55);background:rgba(142,106,21,.42);color:var(--bone);text-decoration:none;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}#fwd span{display:none}
+#fwd svg{width:19px;height:19px}
 .nojs-hide{display:none}
 </style>
 </head>
@@ -112,10 +112,10 @@ document.documentElement.style.setProperty('--icons',`url(${CDN+A.icons})`);
 
 /* ── the five festivals: one courtyard, five lights */
 const F=[
- {id:'dhanteras',name:'Dhanteras',date:'2026-11-06',img:'2eb009de-43b5-4284-9f11-7f963b00ba5f.webp',greet:'Happy Dhanteras',wish:'May this Dhanteras bring lasting prosperity to your home.',fwd:'Happy Dhanteras.',front:0,sparks:0,fw:.45},
+ {id:'dhanteras',name:'Dhanteras',date:'2026-11-06',img:'2eb009de-43b5-4284-9f11-7f963b00ba5f.webp',greet:'Happy Dhanteras',wish:'May this Dhanteras bring lasting prosperity to your home.',fwd:'Wishing you a happy and prosperous Dhanteras.',front:0,sparks:0,fw:.45},
  {id:'kali',name:'Kali Chaudas',date:'2026-11-07',img:'e2c9aa1a-34cb-4fb3-b1c0-44e436fbb601.webp',greet:'Kali Chaudas',wish:'May every lamp tonight keep the dark from your door.',fwd:'Wishing you a blessed Kali Chaudas.',front:0,sparks:0,fw:.6},
- {id:'diwali',name:'Diwali',date:'2026-11-08',img:'846ad6ec-ae59-4fe9-8be0-d91ddb7872ea.webp',greet:'Happy Diwali',wish:'May every room of your home be filled with light.',fwd:'Happy Diwali.',front:0,sparks:0,fw:1},
- {id:'bestu',light:1,name:'New Year',date:'2026-11-10',img:'4b810d97-5d55-4f6e-b463-c145733d79c3.webp',greet:'Saal Mubarak',wish:'May the new year open every door for you.',fwd:'Saal Mubarak.',front:0,sparks:0,fw:0},
+ {id:'diwali',name:'Diwali',date:'2026-11-08',img:'846ad6ec-ae59-4fe9-8be0-d91ddb7872ea.webp',greet:'Happy Diwali',wish:'May every room of your home be filled with light.',fwd:'Wishing you a very Happy Diwali.',front:0,sparks:0,fw:1},
+ {id:'bestu',light:1,name:'New Year',date:'2026-11-10',img:'4b810d97-5d55-4f6e-b463-c145733d79c3.webp',greet:'Saal Mubarak',wish:'May the new year open every door for you.',fwd:'Saal Mubarak. Wishing you a bright new year.',front:0,sparks:0,fw:0},
  {id:'bhaidooj',light:1,name:'Bhai Dooj',date:'2026-11-11',img:'a74961da-b2bc-4334-a92c-32eca0d5d154.webp',greet:'Happy Bhai Dooj',wish:'To the bonds that light our lives.',fwd:'Happy Bhai Dooj.',front:0,sparks:0,fw:0},
 ];
 const todayIN=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Kolkata'}).format(new Date());
@@ -144,19 +144,29 @@ $('#sound').addEventListener('click',e=>{e.stopPropagation();muted=!muted;$('#so
 const days=$('#days');
 days.innerHTML=F.map((f,i)=>`<button role="tab" data-i="${i}" aria-label="${f.name}"><div class="ic" style="background-position:${i*25}% 0"></div><span>${f.name}</span></button>`).join('');
 const nb=t=>t.replace(/ (\S+)$/,'\u00a0$1');
+function fill(el,text,mode){ el.innerHTML='';
+  text.split(/ /).forEach((w,wi,arr)=>{ const word=document.createElement('span'); word.style.cssText='display:inline-block;white-space:nowrap';
+    if(mode==='ch'){ [...w].forEach(c=>{ const s=document.createElement('span'); s.className='rv'; s.style.display='inline-block'; s.textContent=c; word.appendChild(s); }); }
+    else { word.className='rv'; word.textContent=w; }
+    el.appendChild(word); if(wi<arr.length-1) el.appendChild(document.createTextNode(' ')); });
+}
+function revealMsg(delay){ if(!G) return;
+  G.fromTo('#greet .rv',{opacity:0,y:16,filter:'blur(8px)'},{opacity:1,y:0,filter:'blur(0px)',duration:1.1,stagger:.04,ease:'power3.out',delay:delay||0});
+  G.fromTo('#wish .rv',{opacity:0,y:10,filter:'blur(6px)'},{opacity:1,y:0,filter:'blur(0px)',duration:1,stagger:.07,ease:'power2.out',delay:(delay||0)+.5});
+}
 function selectIcon(i,animate){
   [...days.children].forEach((b,j)=>{ const ic=b.querySelector('.ic'), on=j===i; b.classList.toggle('on',on); b.setAttribute('aria-selected',on);
-    if(!G||!animate){ ic.style.transform=on?'translateY(-6px) scale(1.55)':'none'; return; }
+    if(!G||!animate){ ic.style.transform=on?'translateY(-4px) scale(1.5)':'none'; return; }
     G.killTweensOf(ic);
-    if(on) G.fromTo(ic,{scale:.85,y:0},{scale:1.55,y:-6,duration:.7,ease:'back.out(2.4)'});
+    if(on) G.fromTo(ic,{scale:.85,y:0},{scale:1.5,y:-4,duration:.7,ease:'back.out(2.4)'});
     else G.to(ic,{scale:1,y:0,duration:.45,ease:'power2.out'}); });
 }
 function setText(i,animate){
   const f=F[i];
-  if(!animate||!G){ $('#greet').textContent=nb(f.greet); $('#wish').textContent=nb(f.wish); $('#stage').classList.toggle('lightsky',!!f.light); return; }
-  G.to('#msg',{opacity:0,filter:'blur(4px)',duration:.7,ease:'sine.in',onComplete:()=>{ $('#greet').textContent=nb(f.greet); $('#wish').textContent=nb(f.wish); $('#stage').classList.toggle('lightsky',!!f.light); G.to('#msg',{opacity:1,filter:'blur(0px)',duration:1.3,delay:.5,ease:'sine.out'}); }});
+  if(!animate||!G){ fill($('#greet'),f.greet,'ch'); fill($('#wish'),nb(f.wish),'w'); $('#stage').classList.toggle('lightsky',!!f.light); return; }
+  G.to('#msg',{opacity:0,filter:'blur(4px)',duration:.7,ease:'sine.in',onComplete:()=>{ fill($('#greet'),f.greet,'ch'); fill($('#wish'),nb(f.wish),'w'); $('#stage').classList.toggle('lightsky',!!f.light); G.set('#msg',{opacity:1,filter:'none'}); revealMsg(.5); }});
 }
-$('#fwd').addEventListener('click',e=>{ e.preventDefault(); location.href='https://wa.me/?text='+encodeURIComponent(F[TODAY].fwd+' A little light for you: '+PAGE); });
+$('#fwd').addEventListener('click',e=>{ e.preventDefault(); location.href='https://wa.me/?text='+encodeURIComponent(F[TODAY].fwd+' \u{1FA94}\nHere is a little light for you and your family. Tap to open:\n'+PAGE); });
 
 /* ── loading helpers */
 const loadImg=src=>new Promise((res,rej)=>{ const i=new Image(); i.crossOrigin='anonymous'; i.onload=()=>res(i); i.onerror=()=>{ const j=new Image(); j.crossOrigin='anonymous'; j.onload=()=>res(j); j.onerror=rej; j.src=src+'?r=1'; }; i.src=src; });
@@ -303,7 +313,8 @@ async function threeVersion(){
     for(const m of [skyMat,bldMat]){ m.uniforms.a.value=m.uniforms.b.value=ambTex[c0]; m.uniforms.m.value=mT; }
   });
   const court=new THREE.Group(); court.add(sky,bld); scene.add(court);
-  const Z={card:0,cam0:3,cam1:1.15,bld:-2.2,sky:-3.0};
+  const Z={card:1.5,cam0:4.5,cam1:1.15,bld:-2.2,sky:-3.0};
+  card.position.z=Z.card;
   sky.position.z=Z.sky; bld.position.z=Z.bld;
   sky.renderOrder=0; fw.renderOrder=1; bld.renderOrder=2;
 
@@ -313,7 +324,7 @@ async function threeVersion(){
   key.shadow.mapSize.set(1024,1024); key.shadow.bias=-.0006; key.shadow.normalBias=.02;
   const sc=key.shadow.camera; sc.left=-1.6; sc.right=1.6; sc.top=2.2; sc.bottom=-2.2; sc.near=.5; sc.far=10;
   scene.add(key); scene.add(key.target);
-  const spill=new THREE.PointLight(0xffc56b,0,4,1.6); spill.position.set(0,0,-.35); scene.add(spill);
+  const spill=new THREE.PointLight(0xffc56b,0,4,1.6); spill.position.set(0,0,Z.card-.35); scene.add(spill);
 
   // ── fit everything to the screen
   let W=1,H=1;
@@ -339,7 +350,7 @@ async function threeVersion(){
   camera.position.set(0,0,Z.cam0);
 
   // ── state for the opening
-  const S={press:0,lift:0,peel:0,glow:0,cam:0,fadeCard:0,dimUp:0};
+  const S={press:0,lift:0,peel:0,glow:0,cam:0,fadeCard:0,dimUp:0,lean:0};
   L.angle=0; R.angle=0;
   function frameCard(){
     const eL=shapePage(L), eR=shapePage(R);
@@ -367,9 +378,11 @@ async function threeVersion(){
     const k=S.cam; // tilt only once inside
     const breathe=opened?0:Math.sin(t*1.1)*.012;
     const idle=1-Math.min(1,L.angle*3);
-    card.rotation.y=Math.sin(t*.55)*.07*idle; card.rotation.x=Math.cos(t*.43)*.035*idle;
+    card.rotation.y=Math.sin(t*.55)*.07*idle; card.rotation.x=Math.cos(t*.43)*.035*idle-.16*S.lean;
+    const arc=Math.sin(Math.PI*S.cam); camera.fov=40+11*arc; camera.updateProjectionMatrix();
+    if(card.visible&&z<Z.card+.08&&S.cam>.5){ card.visible=false; }
     skyMat.uniforms.dim.value=bldMat.uniforms.dim.value=S.dimUp;
-    camera.position.set(cx*.1*k, -cy*.06*k+breathe*.3, z);
+    camera.position.set(cx*.1*k+arc*.04, -cy*.06*k+breathe*.3+arc*.06, z);
     camera.lookAt(cx*.03*k, 0, Z.bld);
     spill.intensity=S.glow*3.2;
     fwMat.uniforms.t.value=t; fwMat.uniforms.dim.value=S.dimUp;
@@ -389,6 +402,7 @@ async function threeVersion(){
 
   async function open(){
     if(opened)return; opened=true; $('#hit').style.display='none';
+    try{ const d=document.documentElement, rf=d.requestFullscreen||d.webkitRequestFullscreen; if(rf&&!TEST&&!document.fullscreenElement){ const r=rf.call(d,{navigationUI:'hide'}); r&&r.catch&&r.catch(()=>{}); } }catch(e){}
     await courtDone.catch(()=>{});
     try{ if(typeof DeviceOrientationEvent!=='undefined'&&DeviceOrientationEvent.requestPermission) DeviceOrientationEvent.requestPermission().catch(()=>{}); }catch(e){}
     if(!G){ L.angle=2.9; R.angle=2.9; S.cam=1; S.dimUp=1; card.visible=seal.visible=false; showUI(); return; }
@@ -396,20 +410,20 @@ async function threeVersion(){
     const tl=G.timeline(); window.__open=tl; if(TEST) tl.pause();
     tl.to(S,{press:1,duration:.12,ease:'power2.out',onStart:()=>sfx('click')})
       .to(S,{press:0,lift:1,peel:.22,duration:.45,ease:'power2.out'})
-      .to(S,{peel:0,duration:.35,ease:'power2.inOut'},'>-.1')
+      .to(S,{lean:1,duration:.6,ease:'power2.out'},'<')
+      .to(S,{peel:0,duration:.3,ease:'power2.inOut'},'>-.1')
       .add('L')
-      .to(L,{angle:2.95,duration:1.7,ease:'power2.inOut',onStart:()=>sfx('swing')},'L')
-      .to(L,{bend:-.42,duration:.85,ease:'sine.out',yoyo:true,repeat:1},'L')
-      .to(S,{glow:.55,duration:.9,ease:'power1.out'},'L+=.25')
-      .to(S,{dimUp:1,duration:2.2,ease:'power1.inOut'},'L+=.2')
-      .add('R','L+=.55')
-      .to(R,{angle:2.95,duration:1.7,ease:'power2.inOut'},'R')
-      .to(R,{bend:-.42,duration:.85,ease:'sine.out',yoyo:true,repeat:1},'R')
-      .to(S,{glow:1,duration:.8,ease:'power1.out'},'R+=.2')
-      .to(S,{cam:1,duration:2.6,ease:'power2.inOut'},'R+=.35')
-      .to(S,{glow:0,duration:1.2,ease:'power1.in'},'R+=1.6')
-      .add(()=>{ card.visible=false; seal.visible=false; sealShadow.visible=false; },'R+=2.3')
-      .add(showUI,'R+=2.0');
+      .to(L,{angle:1.4,duration:1.9,ease:'power3.inOut',onStart:()=>sfx('swing')},'L')
+      .to(L,{bend:-.5,duration:.95,ease:'sine.out',yoyo:true,repeat:1},'L')
+      .to(R,{angle:1.4,duration:1.9,ease:'power3.inOut'},'L+=.18')
+      .to(R,{bend:-.5,duration:.95,ease:'sine.out',yoyo:true,repeat:1},'L+=.18')
+      .to(S,{glow:1,duration:1,ease:'power1.out'},'L+=.3')
+      .to(S,{dimUp:1,duration:2.4,ease:'power1.inOut'},'L+=.2')
+      .to(S,{lean:0,duration:1.2,ease:'power2.inOut'},'L+=.2')
+      .to(S,{cam:1,duration:3,ease:'power2.inOut'},'L+=.55')
+      .to(S,{glow:0,duration:1.2,ease:'power1.in'},'L+=2.2')
+      .add(()=>{ card.visible=false; },'L+=3.5')
+      .add(showUI,'L+=2.9');
   }
   $('#hit').addEventListener('click',open);
   $('#hit').addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();open();} });
@@ -417,7 +431,7 @@ async function threeVersion(){
   function showUI(){
     layout();
     $('#ui').style.visibility='visible';
-    if(G){ G.fromTo('#msg',{opacity:0,filter:'blur(6px)'},{opacity:1,filter:'blur(0px)',duration:1.6,ease:'sine.out'});
+    if(G){ G.set('#msg',{opacity:1}); revealMsg(0);
       G.fromTo('#dock',{opacity:0},{opacity:1,duration:1.2,delay:.6,ease:'sine.out'});
       selectIcon(cur,true);
       G.fromTo('.top',{opacity:0},{opacity:1,duration:.8,delay:.6});
