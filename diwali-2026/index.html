@@ -51,21 +51,21 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 #sound{width:44px;height:44px;display:grid;place-items:center;pointer-events:auto}
 #sound svg{width:20px;height:20px;stroke:var(--bone);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;opacity:.85}
 #sound .off{display:none}#sound.muted .on{display:none}#sound.muted .off{display:block}
-#scrim{display:none;position:absolute;left:0;right:0;top:0;height:42%;background:linear-gradient(180deg,rgba(10,9,14,.78),rgba(10,9,14,.45) 22%,rgba(10,9,14,.25) 55%,rgba(10,9,14,0));pointer-events:none}
-#msg{text-align:center;padding:12px 7% 0;min-height:calc(clamp(30px,9vw,42px)*1.1 + clamp(14px,3.9vw,16px)*3.1 + 22px)}
-#msg h1{font-weight:300;font-size:clamp(30px,9vw,42px);line-height:1.1;letter-spacing:.005em}
-#msg p{font-size:clamp(14px,3.9vw,16px);line-height:1.55;margin-top:.45em;color:rgba(241,234,218,.82)}
-#dock{position:absolute;left:0;right:0;bottom:0;padding:0 10px calc(14px + env(safe-area-inset-bottom));background:#15120d;pointer-events:auto}
-#hint{text-align:center;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--warm);padding:8px 0 2px;font-size:10.5px;opacity:0;text-shadow:0 1px 8px rgba(0,0,0,.85),0 0 2px rgba(0,0,0,.9)}
-#days{display:flex;justify-content:space-between;gap:2px;padding-top:4px}
-#days button{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 0 4px;opacity:.55;transition:opacity .4s}
-#days button .ic{width:min(11.5vw,50px);aspect-ratio:1;background-image:var(--icons);background-size:500% 100%;background-repeat:no-repeat;transition:transform .4s,filter .4s}
-#days button span{font-size:10.5px;letter-spacing:.06em;line-height:1.2;text-align:center;white-space:nowrap}
-#days button.on{opacity:1}
+#scrim{position:absolute;left:0;right:0;top:0;height:30%;background:linear-gradient(180deg,rgba(8,7,12,.62),rgba(8,7,12,.3) 50%,rgba(8,7,12,0));pointer-events:none}
+#msg{position:absolute;left:0;right:0;top:calc(max(14px,env(safe-area-inset-top)) + 50px);text-align:center;padding:0 8%;text-shadow:0 2px 18px rgba(8,8,16,.75),0 0 2px rgba(8,8,16,.5)}
+#msg h1{font-weight:300;font-size:clamp(34px,10vw,50px);line-height:1.08;letter-spacing:.01em}
+#msg p{font-size:clamp(14px,4vw,17px);line-height:1.55;margin-top:.5em;color:rgba(241,234,218,.9)}
+#dock{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;gap:10px;padding:26px 14px calc(14px + env(safe-area-inset-bottom));background:linear-gradient(180deg,rgba(10,8,6,0),rgba(10,8,6,.5));pointer-events:auto}
+#hint{position:absolute;left:0;right:0;bottom:calc(84px + env(safe-area-inset-bottom));text-align:center;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--warm);opacity:0;text-shadow:0 1px 8px rgba(0,0,0,.9),0 0 2px rgba(0,0,0,.9)}
+#days{flex:1;display:flex;justify-content:space-around;align-items:center;height:56px;border-radius:999px;background:rgba(18,14,9,.45);border:1px solid rgba(240,206,120,.2);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+#days button{width:44px;height:52px;display:grid;place-items:center;position:relative}
+#days button .ic{width:28px;height:28px;background-image:var(--icons);background-size:500% 100%;background-repeat:no-repeat;opacity:.62;transform-origin:50% 70%;will-change:transform}
+#days button span{display:none}
+#days button:active .ic{opacity:.9}
 #days button.on .ic{transform:translateY(-3px) scale(1.08);filter:drop-shadow(0 0 12px rgba(240,206,120,.75))}
-#days button.on span{color:var(--warm)}
-#fwdRow{display:flex;justify-content:center;padding-top:8px}
-#fwd{display:inline-flex;align-items:center;gap:9px;padding:11px 20px;border-radius:999px;border:1px solid rgba(201,160,74,.55);background:rgba(142,106,21,.32);color:var(--bone);font-size:14.5px;font-weight:400;letter-spacing:.03em;text-decoration:none;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+
+#fwdRow{display:flex}
+#fwd{display:inline-flex;align-items:center;gap:7px;height:56px;padding:0 16px;border-radius:999px;border:1px solid rgba(201,160,74,.55);background:rgba(142,106,21,.38);color:var(--bone);font-size:14px;font-weight:400;letter-spacing:.03em;text-decoration:none;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
 #fwd svg{width:17px;height:17px}
 .nojs-hide{display:none}
 </style>
@@ -74,18 +74,18 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 <div id="stage">
  <canvas id="gl" aria-hidden="true"></canvas>
  <div id="loader"><i></i></div>
- <div id="touch">Tap to receive our Diwali greetings</div>
+ <div id="touch">Tap to open</div>
  <div id="hit" role="button" tabindex="0" aria-label="A Diwali wish for you and your family. Touch to open."></div>
 
  <div id="ui">
   <div id="scrim"></div>
   <div class="top"><div class="wm" role="img" aria-label="Layer 1"></div>
    <button id="sound" aria-label="Sound on or off"><svg class="on" viewBox="0 0 24 24"><path d="M4 9h3l5-4v14l-5-4H4z"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"/></svg><svg class="off" viewBox="0 0 24 24"><path d="M4 9h3l5-4v14l-5-4H4z"/><path d="M16 9l5 6M21 9l-5 6"/></svg></button></div>
+  <div id="msg"><h1 id="greet"></h1><p id="wish"></p></div>
+  <div id="hint">Tap a day to change the light</div>
   <div id="dock">
-   <div id="msg"><h1 id="greet"></h1><p id="wish"></p></div>
-   <div id="hint">Tap a day to change the light</div>
    <div id="days" role="tablist" aria-label="Five days of light"></div>
-   <div id="fwdRow"><a id="fwd" href="#" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7a2.8 2.8 0 0 0 1.8-1.3 2.3 2.3 0 0 0 .2-1.3c-.1-.1-.2-.2-.5-.3z"/></svg>Forward on WhatsApp</a></div>
+   <div id="fwdRow"><a id="fwd" href="#" rel="noopener" aria-label="Forward on WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7a2.8 2.8 0 0 0 1.8-1.3 2.3 2.3 0 0 0 .2-1.3c-.1-.1-.2-.2-.5-.3z"/></svg><span>Forward</span></a></div>
   </div>
  </div>
 </div>
@@ -107,14 +107,14 @@ const G=window.gsap;
 const $=s=>document.querySelector(s);
 const PAGE='https://layer-i.github.io/greetings/diwali-2026/';
 const CDN='https://d2ol7oe51mr4n9.cloudfront.net/user_3KBdapm6RLFCt8hz0uFJiAxm6LA/';
-const A={card:'d92bf645-2cda-47e2-97bc-e5f788e5b82d.webp',seal:'d9de1222-74c5-491e-8599-c320b7f23078.webp',front:'c9b4b98a-95d8-48a5-9293-5bda6a4cd6b5.webp',icons:'c81eb035-64fd-4790-ab85-530886649129.webp',mask:'d54087f7-57fc-4825-969c-c44e4c600ff5.png'};
+const A={card:'d92bf645-2cda-47e2-97bc-e5f788e5b82d.webp',seal:'d9de1222-74c5-491e-8599-c320b7f23078.webp',front:'c9b4b98a-95d8-48a5-9293-5bda6a4cd6b5.webp',icons:'c81eb035-64fd-4790-ab85-530886649129.webp',mask:'d54087f7-57fc-4825-969c-c44e4c600ff5.png',fw:'6e2809ae-7b74-48c4-9647-2fea03473394.webp'};
 document.documentElement.style.setProperty('--icons',`url(${CDN+A.icons})`);
 
 /* ── the five festivals: one courtyard, five lights */
 const F=[
  {id:'dhanteras',name:'Dhanteras',date:'2026-11-06',img:'2eb009de-43b5-4284-9f11-7f963b00ba5f.webp',greet:'Happy Dhanteras',wish:'May this Dhanteras bring lasting prosperity to your home.',fwd:'Happy Dhanteras.',front:0,sparks:0,fw:.45},
  {id:'kali',name:'Kali Chaudas',date:'2026-11-07',img:'e2c9aa1a-34cb-4fb3-b1c0-44e436fbb601.webp',greet:'Kali Chaudas',wish:'May every lamp tonight keep the dark from your door.',fwd:'Wishing you a blessed Kali Chaudas.',front:0,sparks:0,fw:.6},
- {id:'diwali',name:'Diwali',date:'2026-11-08',img:'df5c7ee4-229e-4c55-87ff-1ec50dc48600.webp',greet:'Happy Diwali',wish:'May every room of your home be filled with light.',fwd:'Happy Diwali.',front:0,sparks:0,fw:1},
+ {id:'diwali',name:'Diwali',date:'2026-11-08',img:'846ad6ec-ae59-4fe9-8be0-d91ddb7872ea.webp',greet:'Happy Diwali',wish:'May every room of your home be filled with light.',fwd:'Happy Diwali.',front:0,sparks:0,fw:1},
  {id:'bestu',name:'New Year',date:'2026-11-10',img:'4b810d97-5d55-4f6e-b463-c145733d79c3.webp',greet:'Saal Mubarak',wish:'May the new year open every door for you.',fwd:'Saal Mubarak.',front:0,sparks:0,fw:0},
  {id:'bhaidooj',name:'Bhai Dooj',date:'2026-11-11',img:'a74961da-b2bc-4334-a92c-32eca0d5d154.webp',greet:'Happy Bhai Dooj',wish:'To the bonds that light our lives.',fwd:'Happy Bhai Dooj.',front:0,sparks:0,fw:0},
 ];
@@ -144,10 +144,17 @@ $('#sound').addEventListener('click',e=>{e.stopPropagation();muted=!muted;$('#so
 const days=$('#days');
 days.innerHTML=F.map((f,i)=>`<button role="tab" data-i="${i}" aria-label="${f.name}"><div class="ic" style="background-position:${i*25}% 0"></div><span>${f.name}</span></button>`).join('');
 const nb=t=>t.replace(/ (\S+)$/,'\u00a0$1');
+function selectIcon(i,animate){
+  [...days.children].forEach((b,j)=>{ const ic=b.querySelector('.ic'), on=j===i; b.classList.toggle('on',on); b.setAttribute('aria-selected',on);
+    if(!G||!animate){ ic.style.transform=on?'translateY(-6px) scale(1.55)':'none'; return; }
+    G.killTweensOf(ic);
+    if(on) G.fromTo(ic,{scale:.85,y:0},{scale:1.55,y:-6,duration:.7,ease:'back.out(2.4)'});
+    else G.to(ic,{scale:1,y:0,duration:.45,ease:'power2.out'}); });
+}
 function setText(i,animate){
-  const f=F[i]; [...days.children].forEach((b,j)=>{b.classList.toggle('on',j===i);b.setAttribute('aria-selected',j===i);});
+  const f=F[i];
   if(!animate||!G){ $('#greet').textContent=nb(f.greet); $('#wish').textContent=nb(f.wish); return; }
-  G.to('#msg',{opacity:0,y:-8,duration:.35,ease:'power2.in',onComplete:()=>{ $('#greet').textContent=nb(f.greet); $('#wish').textContent=nb(f.wish); G.fromTo('#msg',{opacity:0,y:10},{opacity:1,y:0,duration:.8,ease:'power2.out'}); }});
+  G.to('#msg',{opacity:0,filter:'blur(4px)',duration:.7,ease:'sine.in',onComplete:()=>{ $('#greet').textContent=nb(f.greet); $('#wish').textContent=nb(f.wish); G.to('#msg',{opacity:1,filter:'blur(0px)',duration:1.3,delay:.5,ease:'sine.out'}); }});
 }
 $('#fwd').addEventListener('click',e=>{ e.preventDefault(); location.href='https://wa.me/?text='+encodeURIComponent(F[TODAY].fwd+' A little light for you: '+PAGE); });
 
@@ -182,11 +189,12 @@ async function threeVersion(){
   // the card face: the painted card with its words printed across the fold, as on a real gatefold
   const cc=document.createElement('canvas'); cc.width=1080; cc.height=1910; const x=cc.getContext('2d');
   x.drawImage(cardImg,0,0,1080,1910);
-  x.textAlign='center'; x.fillStyle='#8E6A15'; x.font="400 42px 'Bai Jamjuree'";
-  if('letterSpacing' in x) x.letterSpacing='8px';
-  x.fillText('WITH OUR WARMEST WISHES',540,400);
+  x.textAlign='center'; x.fillStyle='#8E6A15'; x.font="400 40px 'Bai Jamjuree'";
+  if('letterSpacing' in x) x.letterSpacing='10px';
+  x.fillText('DIWALI 2026',540,385);
   if('letterSpacing' in x) x.letterSpacing='0px';
-  x.fillStyle='#1B1A16'; x.font="300 112px 'Bai Jamjuree'"; x.fillText('for you',540,530); x.fillText('and your family',540,655);
+  x.fillStyle='#1B1A16'; x.font="300 86px 'Bai Jamjuree'";
+  x.fillText('Please accept',540,505); x.fillText('our warmest greetings',540,610); x.fillText('this Diwali',540,715);
   const cardTex=texLoader(cc); const sealTex=texLoader(sealImg);
 
   // ── the card: two pages that bend as they turn
@@ -233,86 +241,71 @@ async function threeVersion(){
   const maskTex=new THREE.Texture(blank); maskTex.needsUpdate=true;
   const ambTex={}; ambTex[cur]=texLoader(blank);
   const vert=`varying vec2 vUv; void main(){ vUv=uv; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.); }`;
+  // a change of day behaves like a lighting scene change: the room settles a little warmer and lower, then rises into the new scene
   const frag=(useMask)=>`
-    uniform sampler2D a; uniform sampler2D b; uniform sampler2D m; uniform float p; uniform float glow; uniform float dim; uniform float ext; varying vec2 vUv;
-    // above the photograph the sky continues: its own top colour, deepening upwards
-    vec3 S(sampler2D t, vec2 uv){
-      if(uv.y<=.965) return texture2D(t,uv).rgb;
-      vec3 top=vec3(0.); for(int i=0;i<10;i++) top+=texture2D(t,vec2((float(i)+.5)/10.,.97)).rgb; top/=10.;
-      vec3 c=uv.y<1.? mix(texture2D(t,vec2(uv.x,min(uv.y,.999))).rgb, top, smoothstep(.965,.999,uv.y)) : top;
-      return c*(1.-.5*clamp((uv.y-1.)/max(ext,.001),0.,1.));
-    }
+    uniform sampler2D a; uniform sampler2D b; uniform sampler2D m; uniform float p; uniform float dim; varying vec2 vUv;
     void main(){
-      vec2 uv=vec2(vUv.x, vUv.y*(1.+ext));
-      vec4 ca=vec4(S(a,uv),1.), cb=vec4(S(b,uv),1.);
-      float s=vUv.x*.75+(1.-vUv.y)*.25;           // the new light washes in from the left
-      float e=smoothstep(p*1.4-.2, p*1.4-.02, s);
-      vec3 col=mix(cb.rgb, ca.rgb, e);
-      float band=(1.-abs(e*2.-1.))*glow;            // a warm edge where the light is changing
-      col+=band*vec3(.45,.30,.12);
-      float ed=smoothstep(0.,.035,min(min(vUv.x,1.-vUv.x),min(vUv.y,1.-vUv.y)));
+      vec3 ca=texture2D(a,vUv).rgb, cb=texture2D(b,vUv).rgb;
+      float k=smoothstep(.22,.78,p), mid=sin(p*3.14159);
+      vec3 col=mix(ca,cb,k);
+      col*=1.-.38*mid;
+      col*=mix(vec3(1.),vec3(1.,.9,.76),mid*.55);
+      float ed=smoothstep(0.,.02,min(min(vUv.x,1.-vUv.x),min(vUv.y,1.-vUv.y)));
       vec3 ink=vec3(.0075,.006,.004);
       float al=1.;
-      ${useMask?'al=texture2D(m,vUv).r*ed;':'col=mix(ink,col,ed);'}
+      ${useMask?'al=texture2D(m,vUv).r;':'col=mix(ink,col,ed);'}
       col=mix(ink,col,dim*dim);
       gl_FragColor=vec4(col,al);
       #include <colorspace_fragment>
     }`;
-  const mkLayer=(useMask)=>new THREE.ShaderMaterial({uniforms:{a:{value:ambTex[cur]},b:{value:ambTex[cur]},m:{value:maskTex},p:{value:1},glow:{value:0},dim:{value:0},ext:{value:0}},vertexShader:vert,fragmentShader:frag(useMask),transparent:useMask,depthWrite:!useMask});
+  const mkLayer=(useMask)=>new THREE.ShaderMaterial({uniforms:{a:{value:ambTex[cur]},b:{value:ambTex[cur]},m:{value:maskTex},p:{value:1},dim:{value:0}},vertexShader:vert,fragmentShader:frag(useMask),transparent:useMask,depthWrite:!useMask});
   const skyMat=mkLayer(false), bldMat=mkLayer(true);
-  const EXT=0; skyMat.uniforms.ext.value=EXT; // the courtyard sits lower, the sky carries on above it
   const sky=new THREE.Mesh(new THREE.PlaneGeometry(1,1),skyMat), bld=new THREE.Mesh(new THREE.PlaneGeometry(1,1),bldMat);
-  const frontTex=texLoader(blank);
+
+  // the fireworks painted in the Diwali sky, set moving: each one rises, blooms, crackles, drifts down and fades, in turn
+  const BAND=464/1935;
+  const fwMat=new THREE.ShaderMaterial({uniforms:{f:{value:texLoader(blank)},t:{value:0},amt:{value:F[cur].id==='diwali'?1:0},dim:{value:0}},
+    vertexShader:vert, transparent:true, depthWrite:false, depthTest:false, blending:THREE.AdditiveBlending,
+    fragmentShader:`
+    uniform sampler2D f; uniform float t, amt, dim; varying vec2 vUv;
+    const float AR=464./1080.;
+    float h(vec2 q){ return fract(sin(dot(q,vec2(12.9898,78.233)))*43758.5453); }
+    vec3 one(vec2 uv, vec2 c, float r, float per, float off){
+      float ph=fract((t+off)/per); vec3 col=vec3(0.);
+      if(ph<.13){ float q=ph/.13; q=q*q*(3.-2.*q); float py=mix(.08,c.y,q);
+        float dx=abs(uv.x-c.x), dy=uv.y-py;
+        float head=exp(-(dx*dx+dy*dy*AR*AR)/.0000035);
+        float trail=dy<0.&&dy>-.16? exp(-dx*dx/.0000012)*(1.+dy/.16)*.45:0.;
+        return vec3(1.,.84,.6)*(head*1.4+trail); }
+      float q=(ph-.13)/.87;
+      float e=1.-pow(1.-min(q/.5,1.),3.); float s=.1+.95*e;
+      vec2 src=c+(uv-c)/s; src.y+=.07*q*q;
+      vec2 d=vec2(src.x-c.x,(src.y-c.y)*AR);
+      float own=1.-smoothstep(r*1.1,r*1.35,length(d));
+      vec3 tx=texture2D(f,clamp(src,0.,1.)).rgb*own;
+      float bri=smoothstep(0.,.05,q)*(1.-smoothstep(.38,1.,q));
+      float tw=mix(1.,.45+.9*h(floor(src*vec2(360.,155.))+floor(t*16.)),smoothstep(.3,.65,q));
+      vec2 du=vec2(uv.x-c.x,(uv.y-c.y)*AR);
+      float flash=(1.-smoothstep(0.,.07,q))*exp(-dot(du,du)/(r*r*.05))*.8;
+      return tx*bri*tw*1.15+vec3(1.,.86,.62)*flash;
+    }
+    void main(){
+      vec3 c=one(vUv,vec2(.29,.583),.15,3.6,0.)+one(vUv,vec2(.60,.708),.14,4.1,1.7)+one(vUv,vec2(.87,.583),.09,4.9,3.1);
+      gl_FragColor=vec4(c*amt*dim*dim,1.);
+      #include <colorspace_fragment>
+    }`});
+  const fw=new THREE.Mesh(new THREE.PlaneGeometry(1,BAND),fwMat); fw.position.set(0,.5-BAND/2,.001); sky.add(fw);
+  loadImg(CDN+A.fw).then(img=>{ fwMat.uniforms.f.value=texLoader(img); }).catch(()=>{});
+
   const courtDone=courtPromise.then(([ambImg,maskImg])=>{
     // fresh textures: three.js allocates fixed-size storage, so the placeholders cannot simply be resized
     const c0=cur; ambTex[c0]=texLoader(ambImg); const mT=new THREE.Texture(maskImg); mT.needsUpdate=true;
     for(const m of [skyMat,bldMat]){ m.uniforms.a.value=m.uniforms.b.value=ambTex[c0]; m.uniforms.m.value=mT; }
   });
-  const front=new THREE.Mesh(new THREE.PlaneGeometry(1,1),new THREE.MeshBasicMaterial({map:frontTex,transparent:true,depthWrite:false,opacity:F[cur].front}));
-  const court=new THREE.Group(); court.add(sky,bld,front); scene.add(court);
-  const Z={card:0,cam0:3,cam1:1.15,bld:-2.2,sky:-3.0,front:-1.45};
-  sky.position.z=Z.sky; bld.position.z=Z.bld; front.position.z=Z.front;
-
-  // sparks rising in the courtyard air
-  const NS=90, sp=new Float32Array(NS*3), sv=new Float32Array(NS);
-  for(let i=0;i<NS;i++){ sp[i*3]=(Math.random()-.5)*2.2; sp[i*3+1]=-1.3+Math.random()*2.4; sp[i*3+2]=-2.1+Math.random()*1.1; sv[i]=.0012+Math.random()*.0025; }
-  const sg=new THREE.BufferGeometry(); sg.setAttribute('position',new THREE.BufferAttribute(sp,3));
-  const dot=document.createElement('canvas'); dot.width=dot.height=64; { const d=dot.getContext('2d'); const gr=d.createRadialGradient(32,32,0,32,32,32); gr.addColorStop(0,'rgba(255,228,170,1)'); gr.addColorStop(.35,'rgba(255,200,110,.6)'); gr.addColorStop(1,'rgba(255,190,90,0)'); d.fillStyle=gr; d.fillRect(0,0,64,64); }
-  const sparkMat=new THREE.PointsMaterial({size:.05,map:new THREE.CanvasTexture(dot),transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,opacity:0});
-  const sparks=new THREE.Points(sg,sparkMat); scene.add(sparks);
-
-  // ── fireworks in the sky, behind the roofline
-  const FW={z:-2.6,w:1,h:1,rate:F[cur].fw,next:0,on:false};
-  const PB=96, NB=7, NP=PB*NB;
-  const fp=new Float32Array(NP*3), fc=new Float32Array(NP*3), fv=new Float32Array(NP*3), fl=new Float32Array(NP), fbase=new Float32Array(NP*3);
-  for(let i=0;i<NP;i++){ fp[i*3+2]=FW.z; fp[i*3+1]=99; }
-  const fg=new THREE.BufferGeometry(); fg.setAttribute('position',new THREE.BufferAttribute(fp,3)); fg.setAttribute('color',new THREE.BufferAttribute(fc,3));
-  const fwMat=new THREE.PointsMaterial({size:.04,map:sparkMat.map,vertexColors:true,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending});
-  const fwPts=new THREE.Points(fg,fwMat); fwPts.frustumCulled=false; scene.add(fwPts);
-  const PAL=[[1,.78,.38],[1,.55,.2],[1,.92,.7],[.98,.42,.32],[1,.85,.5]];
-  let slot=0;
-  function burst(){
-    const b=slot++%NB, x=(Math.random()-.5)*FW.w*.62, y=Math.min(FW.ceil, FW.top-FW.h*(.04+Math.random()*.1));
-    const c=PAL[(Math.random()*PAL.length)|0], c2=PAL[(Math.random()*PAL.length)|0], sp=.55+Math.random()*.35, ring=Math.random()<.35;
-    for(let k=0;k<PB;k++){ const i=b*PB+k;
-      const th=Math.random()*Math.PI*2, ph=Math.acos(2*Math.random()-1), v=sp*(ring?1:(.55+Math.random()*.45));
-      fp[i*3]=x; fp[i*3+1]=y; fp[i*3+2]=FW.z;
-      fv[i*3]=Math.sin(ph)*Math.cos(th)*v; fv[i*3+1]=Math.sin(ph)*Math.sin(th)*v; fv[i*3+2]=0;
-      const cc=k%3?c:c2; fbase[i*3]=cc[0]; fbase[i*3+1]=cc[1]; fbase[i*3+2]=cc[2]; fl[i]=1+Math.random()*.25; }
-    if(ac) sfx('pop');
-  }
-  function stepFW(dt,t){
-    if(FW.on&&FW.rate>0&&t>FW.next){ burst(); FW.next=t+(1.6+Math.random()*1.4)/FW.rate; }
-    for(let i=0;i<NP;i++){ if(fl[i]<=0) continue;
-      fl[i]-=dt*.62; const k=Math.max(0,fl[i]);
-      fv[i*3]*=.965; fv[i*3+1]=fv[i*3+1]*.965-.18*dt;
-      fp[i*3]+=fv[i*3]*dt*.5; fp[i*3+1]+=fv[i*3+1]*dt*.5;
-      const out=Math.abs(fp[i*3])>FW.w*.48||fp[i*3+1]>FW.top-FW.h*.006; // stay inside the picture's sky
-      const a=out?0:k*k*(.75+.25*Math.sin(t*40+i)); fc[i*3]=fbase[i*3]*a; fc[i*3+1]=fbase[i*3+1]*a; fc[i*3+2]=fbase[i*3+2]*a;
-      if(fl[i]<=0) fp[i*3+1]=99; }
-    fg.attributes.position.needsUpdate=true; fg.attributes.color.needsUpdate=true;
-  }
-  sky.renderOrder=0; fwPts.renderOrder=1; bld.renderOrder=2; front.renderOrder=3; sparks.renderOrder=4;
+  const court=new THREE.Group(); court.add(sky,bld); scene.add(court);
+  const Z={card:0,cam0:3,cam1:1.15,bld:-2.2,sky:-3.0};
+  sky.position.z=Z.sky; bld.position.z=Z.bld;
+  sky.renderOrder=0; fw.renderOrder=1; bld.renderOrder=2;
 
   // ── light
   const amb=new THREE.AmbientLight(0xffffff,1.6); scene.add(amb);
@@ -334,15 +327,9 @@ async function threeVersion(){
     // each courtyard layer covers the screen at the end, with room for tilt
     const arC=1080/1935;
     const fit=(z,extra)=>{ const h=visH(Z.cam1-z), w=h*camera.aspect; const hh=Math.max(h,w/arC)*extra; return [hh*arC,hh]; };
-    // the courtyard sits full width and ends where the dock begins, so nothing covers it; the sky carries on above
-    const sr=stage.getBoundingClientRect(), tp=$('.top').getBoundingClientRect(), dk=$('#dock').getBoundingClientRect();
-    const y0=tp.bottom-sr.top+10, y1=dk.top-sr.top-6;            // the band the picture may use, in px
-    const hp=Math.max(120,Math.min((y1-y0)*1.08, W*.94/arC)), cyp=(y0+y1)/2-(y1-y0)*.0; // whole picture, as large as fits
-    const place=z=>{ const Hv=visH(Z.cam1-z), k=Hv/H; const h=hp*k, w=h*arC; return {w,h,cy:Hv*(.5-cyp/H)}; };
-    const pb=place(Z.bld); bld.scale.set(pb.w,pb.h,1); bld.position.y=pb.cy;
-    const ps=place(Z.sky); sky.scale.set(ps.w,ps.h,1); sky.position.y=ps.cy;
-    const pf=place(FW.z); FW.w=pf.w; FW.h=pf.h; FW.top=pf.cy+pf.h/2; FW.ceil=FW.top-pf.h*.03;
-    let [w3,h3]=fit(Z.front,1.06); front.scale.set(w3,h3,1); front.position.y=0;
+    // full bleed: each layer covers the screen, with a little room for the tilt
+    let [w1,h1]=fit(Z.bld,1.05); bld.scale.set(w1,h1,1); bld.position.y=0;
+    let [w2,h2]=fit(Z.sky,1.08); sky.scale.set(w2,h2,1); sky.position.y=0;
     const sw=Math.min(CW*.36,.62); seal.scale.set(sw,sw,1); sealShadow.scale.set(sw*.98,sw*.98,1);
   }
   addEventListener('resize',layout); layout();
@@ -379,14 +366,10 @@ async function threeVersion(){
     const idle=1-Math.min(1,L.angle*3);
     card.rotation.y=Math.sin(t*.55)*.07*idle; card.rotation.x=Math.cos(t*.43)*.035*idle;
     skyMat.uniforms.dim.value=bldMat.uniforms.dim.value=S.dimUp;
-    camera.position.set(cx*.035*k, -cy*.025*k+breathe*.3, z);
+    camera.position.set(cx*.1*k, -cy*.06*k+breathe*.3, z);
     camera.lookAt(cx*.03*k, 0, Z.bld);
-    // sparks
-    const pa=sg.attributes.position.array;
-    for(let i=0;i<NS;i++){ pa[i*3+1]+=sv[i]; pa[i*3]+=Math.sin(t*.7+i)*.0006; if(pa[i*3+1]>1.3){ pa[i*3+1]=-1.3; pa[i*3]=(Math.random()-.5)*2.2; } }
-    sg.attributes.position.needsUpdate=true;
     spill.intensity=S.glow*3.2;
-    stepFW(Math.min(.05,(now-(window.__lt||now))/1000),t); window.__lt=now;
+    fwMat.uniforms.t.value=t; fwMat.uniforms.dim.value=S.dimUp;
     renderer.render(scene,camera);
     requestAnimationFrame(render);
   }
@@ -396,7 +379,7 @@ async function threeVersion(){
   if(window.__fallback) return; window.__ready=true;
   $('#touch').style.color='var(--gold)'; $('#touch').style.bottom='calc(4.5% + env(safe-area-inset-bottom))';
   $('#loader').style.opacity=0; setTimeout(()=>$('#loader').remove(),900);
-  setText(cur,false);
+  setText(cur,false); selectIcon(cur,false);
   if(G){ G.to('#touch',{opacity:1,duration:.9,delay:.6}); G.to('#touch',{opacity:.35,duration:1.4,repeat:-1,yoyo:true,ease:'sine.inOut',delay:1.5}); }
   else $('#touch').style.opacity=1;
   $('#hit').style.display='block';
@@ -420,8 +403,6 @@ async function threeVersion(){
       .to(R,{angle:2.95,duration:1.7,ease:'power2.inOut'},'R')
       .to(R,{bend:-.42,duration:.85,ease:'sine.out',yoyo:true,repeat:1},'R')
       .to(S,{glow:1,duration:.8,ease:'power1.out'},'R+=.2')
-      .to(sparkMat,{opacity:.9*F[cur].sparks,duration:1.6},'R+=.4')
-      .add(()=>{ FW.on=true; if(FW.rate>0){ burst(); setTimeout(burst,450); setTimeout(burst,1100); } FW.next=0; },'R+=1.2')
       .to(S,{cam:1,duration:2.6,ease:'power2.inOut'},'R+=.35')
       .to(S,{glow:0,duration:1.2,ease:'power1.in'},'R+=1.6')
       .add(()=>{ card.visible=false; seal.visible=false; sealShadow.visible=false; },'R+=2.3')
@@ -433,8 +414,9 @@ async function threeVersion(){
   function showUI(){
     layout();
     $('#ui').style.visibility='visible';
-    if(G){ G.fromTo('#msg',{opacity:0,y:14},{opacity:1,y:0,duration:1.1,ease:'power2.out'});
-      G.fromTo('#dock',{opacity:0,y:24},{opacity:1,y:0,duration:1,delay:.35,ease:'power3.out'});
+    if(G){ G.fromTo('#msg',{opacity:0,filter:'blur(6px)'},{opacity:1,filter:'blur(0px)',duration:1.6,ease:'sine.out'});
+      G.fromTo('#dock',{opacity:0},{opacity:1,duration:1.2,delay:.6,ease:'sine.out'});
+      selectIcon(cur,true);
       G.fromTo('.top',{opacity:0},{opacity:1,duration:.8,delay:.6});
       G.to('#hint',{opacity:1,duration:.8,delay:1.4}); }
     // fetch the other four lights quietly
@@ -448,16 +430,14 @@ async function threeVersion(){
     if(!hinted){ hinted=true; G&&G.to('#hint',{opacity:0,duration:.5}); }
     busy=true;
     if(!ambTex[i]){ try{ ambTex[i]=texLoader(await loadImg(CDN+F[i].img)); }catch(err){ busy=false; return; } }
-    cur=i; setText(i,true); sfx('sweep');
+    cur=i; setText(i,true); selectIcon(i,true); sfx('sweep');
     for(const m of [skyMat,bldMat]){ m.uniforms.b.value=ambTex[i]; m.uniforms.p.value=0; }
-    const done=()=>{ for(const m of [skyMat,bldMat]){ m.uniforms.a.value=ambTex[i]; m.uniforms.p.value=1; m.uniforms.glow.value=0; } busy=false; };
-    if(!G){ done(); front.material.opacity=F[i].front; return; }
-    // uniforms: p goes 0→1 (the new light washes across); a warm edge leads it
+    const done=()=>{ for(const m of [skyMat,bldMat]){ m.uniforms.a.value=ambTex[i]; m.uniforms.p.value=1; } busy=false; };
+    const fwTo=F[i].id==='diwali'?1:0;
+    if(!G){ done(); fwMat.uniforms.amt.value=fwTo; return; }
     const st={p:0};
-    G.to(st,{p:1,duration:1.8,ease:'power2.inOut',onUpdate:()=>{ for(const m of [skyMat,bldMat]){ m.uniforms.p.value=st.p; m.uniforms.glow.value=Math.sin(st.p*Math.PI)*.9; } },onComplete:done});
-    G.to(front.material,{opacity:F[i].front,duration:1.4,ease:'power2.inOut'});
-    G.to(sparkMat,{opacity:.9*F[i].sparks,duration:1.4});
-    FW.rate=F[i].fw; if(FW.rate>0) setTimeout(burst,700);
+    G.to(st,{p:1,duration:2.4,ease:'sine.inOut',onUpdate:()=>{ for(const m of [skyMat,bldMat]) m.uniforms.p.value=st.p; },onComplete:done});
+    G.to(fwMat.uniforms.amt,{value:fwTo,duration:1.6,delay:fwTo?1.1:0,ease:'sine.inOut'});
   });
   // the shader's p means "how far the new light has come": a=old, b=new, e picks old where s is beyond the edge
 }
@@ -468,10 +448,10 @@ function plainVersion(){
   const bg=document.createElement('div'); bg.style.cssText='position:absolute;inset:0;background:#141a2e center/cover no-repeat;transition:opacity 1.2s';
   st.insertBefore(bg,st.firstChild); if(window.__fallback) return; window.__ready=true;
   const cover=document.createElement('div'); cover.style.cssText=`position:absolute;inset:0;z-index:4;background:#efe3c9 url(${CDN+A.card}) center/cover no-repeat;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .9s`;
-  cover.innerHTML=`<div style="color:#8E6A15;font-weight:400;font-size:13px;letter-spacing:.26em;margin-top:-40%">WITH OUR WARMEST WISHES</div><div style="color:#1B1A16;font-size:36px;text-align:center;line-height:1.15;margin-top:12px">for you<br>and your family</div><div style="width:150px;height:150px;margin-top:9vh;background:url(${CDN+A.seal}) center/contain no-repeat"></div>`;
+  cover.innerHTML=`<div style="color:#8E6A15;font-weight:400;font-size:13px;letter-spacing:.26em;margin-top:-40%">DIWALI 2026</div><div style="color:#1B1A16;font-size:28px;text-align:center;line-height:1.25;margin-top:12px">Please accept<br>our warmest greetings<br>this Diwali</div><div style="width:150px;height:150px;margin-top:9vh;background:url(${CDN+A.seal}) center/contain no-repeat"></div>`;
   st.insertBefore(cover,$('#touch'));
   $('#loader').remove(); $('#touch').style.opacity=1; $('#hit').style.display='block';
-  const show=i=>{ bg.style.backgroundImage=`url(${CDN+F[i].img})`; setText(i,!!G); };
+  const show=i=>{ bg.style.backgroundImage=`url(${CDN+F[i].img})`; setText(i,!!G); selectIcon(i,!!G); };
   show(cur);
   $('#hit').addEventListener('click',()=>{ $('#hit').style.display='none'; cover.style.opacity=0; $('#touch').style.opacity=0; setTimeout(()=>cover.remove(),900); $('#ui').style.visibility='visible'; $('#hint').style.opacity=1; },{once:true});
   days.addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b)return; cur=+b.dataset.i; $('#hint').style.opacity=0; bg.style.opacity=.2; setTimeout(()=>{ show(cur); bg.style.opacity=1; },400); });
