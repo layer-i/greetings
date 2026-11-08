@@ -11,11 +11,11 @@
 <meta property="og:site_name" content="Layer 1">
 <meta property="og:title" content="Happy Diwali">
 <meta property="og:description" content="Tap to receive our Diwali greetings.">
-<meta property="og:image" content="https://d2ol7oe51mr4n9.cloudfront.net/user_3KBdapm6RLFCt8hz0uFJiAxm6LA/98552884-e5c7-4950-9629-29cb0d19c260.jpg">
+<meta property="og:image" content="https://d2ol7oe51mr4n9.cloudfront.net/user_3KBdapm6RLFCt8hz0uFJiAxm6LA/dd4f5b0c-5083-4fc4-8229-e0a63295ba74.jpg">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="A lit haveli courtyard on Diwali night with the Layer 1 seal">
+<meta property="og:image:alt" content="A haveli courtyard dressed for Diwali night, lit in warm saffron">
 <meta property="og:url" content="https://layer-i.github.io/greetings/diwali-2026/">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://d2ol7oe51mr4n9.cloudfront.net" crossorigin>
@@ -107,16 +107,16 @@ const G=window.gsap;
 const $=s=>document.querySelector(s);
 const PAGE='https://layer-i.github.io/greetings/diwali-2026/';
 const CDN='https://d2ol7oe51mr4n9.cloudfront.net/user_3KBdapm6RLFCt8hz0uFJiAxm6LA/';
-const A={card:'d92bf645-2cda-47e2-97bc-e5f788e5b82d.webp',seal:'d9de1222-74c5-491e-8599-c320b7f23078.webp',front:'c9b4b98a-95d8-48a5-9293-5bda6a4cd6b5.webp',icons:'c81eb035-64fd-4790-ab85-530886649129.webp',mask:'9af36c7a-1ddf-4166-9f9e-4cb761381fcf.png'};
+const A={card:'d92bf645-2cda-47e2-97bc-e5f788e5b82d.webp',seal:'d9de1222-74c5-491e-8599-c320b7f23078.webp',front:'c9b4b98a-95d8-48a5-9293-5bda6a4cd6b5.webp',icons:'c81eb035-64fd-4790-ab85-530886649129.webp',mask:'d54087f7-57fc-4825-969c-c44e4c600ff5.png'};
 document.documentElement.style.setProperty('--icons',`url(${CDN+A.icons})`);
 
 /* ── the five festivals: one courtyard, five lights */
 const F=[
- {id:'dhanteras',name:'Dhanteras',date:'2026-11-06',img:'d6abfac6-5ada-4cbb-b0e1-2f68f4622205.webp',greet:'Happy Dhanteras',wish:'May this Dhanteras bring lasting prosperity to your home.',fwd:'Happy Dhanteras.',front:0,sparks:.35},
- {id:'kali',name:'Kali Chaudas',date:'2026-11-07',img:'cc43f477-7388-46a6-ba9d-a178f4851213.webp',greet:'Kali Chaudas',wish:'May every lamp tonight keep the dark from your door.',fwd:'Wishing you a blessed Kali Chaudas.',front:0,sparks:.25},
- {id:'diwali',name:'Diwali',date:'2026-11-08',img:'73671e00-c9fa-4439-8178-53550da93bda.webp',greet:'Happy Diwali',wish:'May every room of your home be filled with light.',fwd:'Happy Diwali.',front:1,sparks:1},
- {id:'bestu',name:'New Year',date:'2026-11-10',img:'f4c30e9f-f7d8-4f54-a4b8-3de64517abea.webp',greet:'Saal Mubarak',wish:'May the new year open every door for you.',fwd:'Saal Mubarak.',front:.0,sparks:0},
- {id:'bhaidooj',name:'Bhai Dooj',date:'2026-11-11',img:'cc0136d6-4707-4ea7-ba6d-b94a29ff40bc.webp',greet:'Happy Bhai Dooj',wish:'To the bonds that light our lives.',fwd:'Happy Bhai Dooj.',front:0,sparks:0},
+ {id:'dhanteras',name:'Dhanteras',date:'2026-11-06',img:'2eb009de-43b5-4284-9f11-7f963b00ba5f.webp',greet:'Happy Dhanteras',wish:'May this Dhanteras bring lasting prosperity to your home.',fwd:'Happy Dhanteras.',front:0,sparks:.35,fw:.45},
+ {id:'kali',name:'Kali Chaudas',date:'2026-11-07',img:'e2c9aa1a-34cb-4fb3-b1c0-44e436fbb601.webp',greet:'Kali Chaudas',wish:'May every lamp tonight keep the dark from your door.',fwd:'Wishing you a blessed Kali Chaudas.',front:0,sparks:.25,fw:.6},
+ {id:'diwali',name:'Diwali',date:'2026-11-08',img:'df5c7ee4-229e-4c55-87ff-1ec50dc48600.webp',greet:'Happy Diwali',wish:'May every room of your home be filled with light.',fwd:'Happy Diwali.',front:0,sparks:1,fw:1},
+ {id:'bestu',name:'New Year',date:'2026-11-10',img:'4b810d97-5d55-4f6e-b463-c145733d79c3.webp',greet:'Saal Mubarak',wish:'May the new year open every door for you.',fwd:'Saal Mubarak.',front:0,sparks:0,fw:0},
+ {id:'bhaidooj',name:'Bhai Dooj',date:'2026-11-11',img:'a74961da-b2bc-4334-a92c-32eca0d5d154.webp',greet:'Happy Bhai Dooj',wish:'To the bonds that light our lives.',fwd:'Happy Bhai Dooj.',front:0,sparks:0,fw:0},
 ];
 const todayIN=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Kolkata'}).format(new Date());
 let cur=F.findIndex(f=>f.date===todayIN); if(todayIN==='2026-11-09'||cur<0)cur=2;
@@ -126,7 +126,7 @@ const TODAY=cur;
 let ac=null, muted=false;
 const sfx=type=>{ if(muted)return; try{
   ac=ac||new (window.AudioContext||window.webkitAudioContext)(); if(ac.state==='suspended')ac.resume();
-  const t=ac.currentTime, len={click:.25,swing:1.8,sweep:1.6,tick:.12}[type];
+  const t=ac.currentTime, len={click:.25,swing:1.8,sweep:1.6,tick:.12,pop:.9}[type];
   const buf=ac.createBuffer(1,Math.ceil(ac.sampleRate*len),ac.sampleRate), d=buf.getChannelData(0);
   for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;
   const src=ac.createBufferSource(); src.buffer=buf; const f=ac.createBiquadFilter(), g=ac.createGain(); f.type='bandpass';
@@ -134,6 +134,7 @@ const sfx=type=>{ if(muted)return; try{
   if(type==='click'){f.frequency.value=1900;f.Q.value=1.1;env(.28,.003,.16);}
   if(type==='swing'){f.frequency.setValueAtTime(240,t);f.frequency.exponentialRampToValueAtTime(1500,t+1.5);f.Q.value=.5;env(.06,.7,1.75);}
   if(type==='sweep'){f.frequency.setValueAtTime(900,t);f.frequency.exponentialRampToValueAtTime(3200,t+1.3);f.Q.value=.6;env(.035,.6,1.55);}
+  if(type==='pop'){f.type='lowpass';f.frequency.setValueAtTime(420,t);f.frequency.exponentialRampToValueAtTime(140,t+.5);f.Q.value=.7;env(.07,.006,.75);}
   if(type==='tick'){f.frequency.value=2600;f.Q.value=1.4;env(.05,.003,.09);}
   src.connect(f).connect(g).connect(ac.destination); src.start(t); src.stop(t+len);
 }catch(e){} };
@@ -176,7 +177,7 @@ async function threeVersion(){
   // load the cover first, the courtyard alongside
   const texLoader=img=>{ const t=new THREE.Texture(img); t.colorSpace=THREE.SRGBColorSpace; t.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy()); t.needsUpdate=true; return t; };
   const [cardImg,sealImg]=await Promise.all([loadImg(CDN+A.card),loadImg(CDN+A.seal),fontsReady]);
-  const courtPromise=Promise.all([loadImg(CDN+F[cur].img),loadImg(CDN+A.mask),loadImg(CDN+A.front)]);
+  const courtPromise=Promise.all([loadImg(CDN+F[cur].img),loadImg(CDN+A.mask)]);
 
   // the card face: the painted card with its words printed across the fold, as on a real gatefold
   const cc=document.createElement('canvas'); cc.width=1080; cc.height=1910; const x=cc.getContext('2d');
@@ -253,11 +254,10 @@ async function threeVersion(){
   const skyMat=mkLayer(false), bldMat=mkLayer(true);
   const sky=new THREE.Mesh(new THREE.PlaneGeometry(1,1),skyMat), bld=new THREE.Mesh(new THREE.PlaneGeometry(1,1),bldMat);
   const frontTex=texLoader(blank);
-  const courtDone=courtPromise.then(([ambImg,maskImg,frontImg])=>{
+  const courtDone=courtPromise.then(([ambImg,maskImg])=>{
     // fresh textures: three.js allocates fixed-size storage, so the placeholders cannot simply be resized
     const c0=cur; ambTex[c0]=texLoader(ambImg); const mT=new THREE.Texture(maskImg); mT.needsUpdate=true;
     for(const m of [skyMat,bldMat]){ m.uniforms.a.value=m.uniforms.b.value=ambTex[c0]; m.uniforms.m.value=mT; }
-    front.material.map=texLoader(frontImg); front.material.needsUpdate=true;
   });
   const front=new THREE.Mesh(new THREE.PlaneGeometry(1,1),new THREE.MeshBasicMaterial({map:frontTex,transparent:true,depthWrite:false,opacity:F[cur].front}));
   const court=new THREE.Group(); court.add(sky,bld,front); scene.add(court);
@@ -271,6 +271,38 @@ async function threeVersion(){
   const dot=document.createElement('canvas'); dot.width=dot.height=64; { const d=dot.getContext('2d'); const gr=d.createRadialGradient(32,32,0,32,32,32); gr.addColorStop(0,'rgba(255,228,170,1)'); gr.addColorStop(.35,'rgba(255,200,110,.6)'); gr.addColorStop(1,'rgba(255,190,90,0)'); d.fillStyle=gr; d.fillRect(0,0,64,64); }
   const sparkMat=new THREE.PointsMaterial({size:.05,map:new THREE.CanvasTexture(dot),transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,opacity:0});
   const sparks=new THREE.Points(sg,sparkMat); scene.add(sparks);
+
+  // ── fireworks in the sky, behind the roofline
+  const FW={z:-2.6,w:1,h:1,rate:F[cur].fw,next:0,on:false};
+  const PB=96, NB=7, NP=PB*NB;
+  const fp=new Float32Array(NP*3), fc=new Float32Array(NP*3), fv=new Float32Array(NP*3), fl=new Float32Array(NP), fbase=new Float32Array(NP*3);
+  for(let i=0;i<NP;i++){ fp[i*3+2]=FW.z; fp[i*3+1]=99; }
+  const fg=new THREE.BufferGeometry(); fg.setAttribute('position',new THREE.BufferAttribute(fp,3)); fg.setAttribute('color',new THREE.BufferAttribute(fc,3));
+  const fwMat=new THREE.PointsMaterial({size:.04,map:sparkMat.map,vertexColors:true,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending});
+  const fwPts=new THREE.Points(fg,fwMat); fwPts.frustumCulled=false; scene.add(fwPts);
+  const PAL=[[1,.78,.38],[1,.55,.2],[1,.92,.7],[.98,.42,.32],[1,.85,.5]];
+  let slot=0;
+  function burst(){
+    const b=slot++%NB, x=(Math.random()-.5)*FW.w*.7, y=FW.h*.5-FW.h*(.06+Math.random()*.1);
+    const c=PAL[(Math.random()*PAL.length)|0], c2=PAL[(Math.random()*PAL.length)|0], sp=.55+Math.random()*.35, ring=Math.random()<.35;
+    for(let k=0;k<PB;k++){ const i=b*PB+k;
+      const th=Math.random()*Math.PI*2, ph=Math.acos(2*Math.random()-1), v=sp*(ring?1:(.55+Math.random()*.45));
+      fp[i*3]=x; fp[i*3+1]=y; fp[i*3+2]=FW.z;
+      fv[i*3]=Math.sin(ph)*Math.cos(th)*v; fv[i*3+1]=Math.sin(ph)*Math.sin(th)*v; fv[i*3+2]=0;
+      const cc=k%3?c:c2; fbase[i*3]=cc[0]; fbase[i*3+1]=cc[1]; fbase[i*3+2]=cc[2]; fl[i]=1+Math.random()*.25; }
+    if(ac) sfx('pop');
+  }
+  function stepFW(dt,t){
+    if(FW.on&&FW.rate>0&&t>FW.next){ burst(); FW.next=t+(1.6+Math.random()*1.4)/FW.rate; }
+    for(let i=0;i<NP;i++){ if(fl[i]<=0) continue;
+      fl[i]-=dt*.62; const k=Math.max(0,fl[i]);
+      fv[i*3]*=.965; fv[i*3+1]=fv[i*3+1]*.965-.18*dt;
+      fp[i*3]+=fv[i*3]*dt*.5; fp[i*3+1]+=fv[i*3+1]*dt*.5;
+      const a=k*k*(.75+.25*Math.sin(t*40+i)); fc[i*3]=fbase[i*3]*a; fc[i*3+1]=fbase[i*3+1]*a; fc[i*3+2]=fbase[i*3+2]*a;
+      if(fl[i]<=0) fp[i*3+1]=99; }
+    fg.attributes.position.needsUpdate=true; fg.attributes.color.needsUpdate=true;
+  }
+  sky.renderOrder=0; fwPts.renderOrder=1; bld.renderOrder=2; front.renderOrder=3; sparks.renderOrder=4;
 
   // ── light
   const amb=new THREE.AmbientLight(0xffffff,1.6); scene.add(amb);
@@ -290,10 +322,12 @@ async function threeVersion(){
     const vh=visH(Z.cam0-Z.card), vw=vh*camera.aspect;
     CH=Math.min(vh*.8, vw*.86/ar); CW=CH*ar; card.position.y=vh*.025;
     // each courtyard layer covers the screen at the end, with room for tilt
-    const fit=(z,extra)=>{ const h=visH(Z.cam1-z), w=h*camera.aspect; const hh=Math.max(h,w/ar)*extra; return [hh*ar,hh]; };
+    const arC=1080/1935;
+    const fit=(z,extra)=>{ const h=visH(Z.cam1-z), w=h*camera.aspect; const hh=Math.max(h,w/arC)*extra; return [hh*arC,hh]; };
     let [w1,h1]=fit(Z.bld,1.08); bld.scale.set(w1,h1,1);
     let [w2,h2]=fit(Z.sky,1.12); sky.scale.set(w2,h2,1);
     let [w3,h3]=fit(Z.front,1.06); front.scale.set(w3,h3,1); front.position.y=0;
+    const [w4,h4]=fit(FW.z,1.1); FW.w=w4; FW.h=h4;
     const sw=Math.min(CW*.36,.62); seal.scale.set(sw,sw,1); sealShadow.scale.set(sw*.98,sw*.98,1);
   }
   addEventListener('resize',layout); layout();
@@ -337,6 +371,7 @@ async function threeVersion(){
     for(let i=0;i<NS;i++){ pa[i*3+1]+=sv[i]; pa[i*3]+=Math.sin(t*.7+i)*.0006; if(pa[i*3+1]>1.3){ pa[i*3+1]=-1.3; pa[i*3]=(Math.random()-.5)*2.2; } }
     sg.attributes.position.needsUpdate=true;
     spill.intensity=S.glow*3.2;
+    stepFW(Math.min(.05,(now-(window.__lt||now))/1000),t); window.__lt=now;
     renderer.render(scene,camera);
     requestAnimationFrame(render);
   }
@@ -371,6 +406,7 @@ async function threeVersion(){
       .to(R,{bend:-.42,duration:.85,ease:'sine.out',yoyo:true,repeat:1},'R')
       .to(S,{glow:1,duration:.8,ease:'power1.out'},'R+=.2')
       .to(sparkMat,{opacity:.9*F[cur].sparks,duration:1.6},'R+=.4')
+      .add(()=>{ FW.on=true; if(FW.rate>0){ burst(); setTimeout(burst,450); setTimeout(burst,1100); } FW.next=0; },'R+=1.2')
       .to(S,{cam:1,duration:2.6,ease:'power2.inOut'},'R+=.35')
       .to(S,{glow:0,duration:1.2,ease:'power1.in'},'R+=1.6')
       .add(()=>{ card.visible=false; seal.visible=false; sealShadow.visible=false; },'R+=2.3')
@@ -405,6 +441,7 @@ async function threeVersion(){
     G.to(st,{p:1,duration:1.8,ease:'power2.inOut',onUpdate:()=>{ for(const m of [skyMat,bldMat]){ m.uniforms.p.value=st.p; m.uniforms.glow.value=Math.sin(st.p*Math.PI)*.9; } },onComplete:done});
     G.to(front.material,{opacity:F[i].front,duration:1.4,ease:'power2.inOut'});
     G.to(sparkMat,{opacity:.9*F[i].sparks,duration:1.4});
+    FW.rate=F[i].fw; if(FW.rate>0) setTimeout(burst,700);
   });
   // the shader's p means "how far the new light has come": a=old, b=new, e picks old where s is beyond the edge
 }
