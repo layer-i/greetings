@@ -19,319 +19,378 @@
 <meta property="og:url" content="https://layer-i.github.io/greetings/diwali-2026/">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://d2ol7oe51mr4n9.cloudfront.net" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 <link rel="preload" href="assets/bai-jamjuree-latin-300-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" as="image" href="https://d2ol7oe51mr4n9.cloudfront.net/user_3KBdapm6RLFCt8hz0uFJiAxm6LA/d92bf645-2cda-47e2-97bc-e5f788e5b82d.webp">
-<link rel="preload" as="image" href="https://d2ol7oe51mr4n9.cloudfront.net/user_3KBdapm6RLFCt8hz0uFJiAxm6LA/d9de1222-74c5-491e-8599-c320b7f23078.webp">
-<link rel="preload" as="image" href="https://d2ol7oe51mr4n9.cloudfront.net/user_3KBdapm6RLFCt8hz0uFJiAxm6LA/73671e00-c9fa-4439-8178-53550da93bda.webp">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js" crossorigin>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js"}}</script>
 <style>
-@font-face{font-family:'Bai Jamjuree';font-weight:300;font-display:swap;src:url(assets/bai-jamjuree-latin-300-normal.woff2) format('woff2')}
-@font-face{font-family:'Bai Jamjuree';font-weight:400;font-display:swap;src:url(assets/bai-jamjuree-latin-400-normal.woff2) format('woff2')}
-:root{
- --ink:#1B1A16;--night:#141a2e;--bronze:#8E6A15;--gold:#C9A04A;--bone:#F1EADA;--warm:#F0CE78;
- --A:url(https://d2ol7oe51mr4n9.cloudfront.net/user_3KBdapm6RLFCt8hz0uFJiAxm6LA/);
-}
+@font-face{font-family:'Bai Jamjuree';font-weight:300;font-display:block;src:url(assets/bai-jamjuree-latin-300-normal.woff2) format('woff2')}
+@font-face{font-family:'Bai Jamjuree';font-weight:400;font-display:block;src:url(assets/bai-jamjuree-latin-400-normal.woff2) format('woff2')}
+:root{--ink:#1B1A16;--night:#141a2e;--bronze:#8E6A15;--gold:#C9A04A;--bone:#F1EADA;--warm:#F0CE78}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;background:var(--ink);overflow:hidden;overscroll-behavior:none}
 body{font-family:'Bai Jamjuree',system-ui,sans-serif;font-weight:300;color:var(--bone);display:flex;align-items:center;justify-content:center;-webkit-user-select:none;user-select:none}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
-
-#stage{position:relative;width:100vw;height:100vh;height:100dvh;overflow:hidden;background:var(--night);perspective:1600px;touch-action:manipulation}
+#stage{position:relative;width:100vw;height:100vh;height:100dvh;overflow:hidden;background:#e9dcc0;touch-action:manipulation}
 @media (min-aspect-ratio:3/4){#stage{width:min(100vw,calc(100dvh*.5625));border-radius:24px;box-shadow:0 40px 100px rgba(0,0,0,.65)}}
+#gl{position:absolute;inset:0;width:100%;height:100%;display:block}
 
-/* ── the world behind the card */
-.scr{position:absolute;inset:0;visibility:hidden;overflow:hidden}
-.scr.on{visibility:visible}
-.paint{position:absolute;inset:-3%;background-color:var(--night);background-size:cover;background-position:center 40%}
-#scene .sky{background-image:var(--sceneImg)}
-#scene .front{background-image:var(--frontImg);background-color:transparent}
-#glow{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;mix-blend-mode:screen}
-.titles{position:absolute;left:0;right:0;top:max(9%,calc(env(safe-area-inset-top) + 52px));text-align:center;padding:0 9%;text-shadow:0 2px 22px rgba(10,10,20,.65)}
-.titles h1{font-weight:300;font-size:clamp(42px,12.5vw,62px);letter-spacing:.005em;line-height:1.05}
-.titles p{font-size:clamp(15px,4.3vw,18px);line-height:1.6;margin-top:.9em;color:rgba(241,234,218,.9)}
-.dim{position:absolute;inset:-3%;background-image:var(--sceneImg);background-size:cover;background-position:center 40%;background-color:var(--night);filter:blur(6px) brightness(.32) saturate(.9);transform:scale(1.08)}
+/* while loading: the paper colour, a breathing seal */
+#loader{position:absolute;inset:0;display:grid;place-items:center;background:#ece0c6;z-index:5;transition:opacity .8s}
+#loader i{width:38px;height:38px;border-radius:50%;border:1.5px solid rgba(142,106,21,.35);border-top-color:var(--bronze);animation:spin 1.1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+#touch{position:absolute;left:0;right:0;bottom:calc(10% + env(safe-area-inset-bottom));text-align:center;font-size:13px;font-weight:400;letter-spacing:.26em;text-transform:uppercase;color:var(--bronze);opacity:0;pointer-events:none;z-index:6}
+#hit{position:absolute;inset:0;z-index:7;cursor:pointer;display:none}
 
-#days .inner{position:absolute;left:8%;right:8%;top:50%;transform:translateY(-50%)}
-#days h2{text-align:center;font-weight:300;font-size:clamp(28px,8.2vw,38px);margin-bottom:4.5vh}
-#days ul{list-style:none;display:flex;flex-direction:column;gap:2.4vh}
-#days li{display:flex;align-items:center;gap:6%;opacity:.62}
-#days li .ic{width:min(21vw,96px);aspect-ratio:1;background-image:var(--iconsImg);background-size:500% 100%;background-repeat:no-repeat;flex:none}
-#days li b{display:block;font-weight:400;font-size:clamp(17px,4.9vw,21px)}
-#days li span{font-size:clamp(13px,3.7vw,15px);color:var(--gold);letter-spacing:.05em}
-#days li.today{opacity:1}
-#days li.today .ic{filter:drop-shadow(0 0 16px rgba(240,206,120,.7))}
-#days li.today span::after{content:' · today';color:var(--warm)}
-#days li.tomorrow span::after{content:' · tomorrow'}
-
-#light .room{position:absolute;inset:-3%;background-image:var(--sceneImg);background-size:cover;background-position:center 40%;background-color:#0d0f19;filter:brightness(.16) saturate(.7)}
-#light .warmth{position:absolute;inset:0;background:radial-gradient(ellipse 85% 55% at 50% 36%,rgba(240,190,90,.42),rgba(150,95,25,.16) 45%,transparent 75%);opacity:0;pointer-events:none}
-#diyaBtn{position:absolute;left:50%;top:33%;width:min(56vw,270px);aspect-ratio:1;transform:translate(-50%,-50%);background:var(--diyaImg) center/contain no-repeat;filter:drop-shadow(0 18px 24px rgba(0,0,0,.55))}
-#diyaBtn:focus-visible{outline:1px solid var(--gold);outline-offset:6px;border-radius:50%}
-#flame{position:absolute;left:81.5%;top:32.5%;width:13%;height:30%;transform:translate(-50%,-100%) scale(0);transform-origin:50% 100%;pointer-events:none}
-#flame i{position:absolute;inset:0;border-radius:50% 50% 50% 50%/62% 62% 38% 38%;background:radial-gradient(ellipse at 50% 80%,#fffaf0 0%,#ffe6a8 20%,#f6b24a 46%,rgba(214,120,30,0) 72%);animation:flick 1.6s ease-in-out infinite alternate}
-#flame::after{content:'';position:absolute;left:50%;top:62%;width:1000%;height:640%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(240,190,90,.32),transparent 62%);border-radius:50%}
-@keyframes flick{0%{transform:scale(1,1) skewX(0)}25%{transform:scale(.94,1.05) skewX(2deg)}55%{transform:scale(1.04,.96) skewX(-2deg)}80%{transform:scale(.97,1.03) skewX(1deg)}100%{transform:scale(1.02,.99) skewX(-1deg)}}
-#lightHint{position:absolute;left:0;right:0;top:55%;text-align:center;font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}
-#after{position:absolute;left:0;right:0;top:53%;text-align:center;padding:0 9%;visibility:hidden}
-#after h2{font-weight:300;font-size:clamp(34px,10vw,48px)}
-#after p{font-size:clamp(15px,4.2vw,17px);color:rgba(241,234,218,.84);margin-top:.5em;line-height:1.5}
-#fwd{display:inline-flex;align-items:center;justify-content:center;gap:10px;margin-top:4.5vh;width:min(80vw,330px);padding:15px 18px;border-radius:12px;background:linear-gradient(180deg,#9c7619,#7f5e12);color:var(--bone);font-weight:400;font-size:16px;letter-spacing:.03em;text-decoration:none;box-shadow:0 10px 24px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,230,160,.25)}
-#fwd svg{width:18px;height:18px;flex:none}
-.wm{position:absolute;left:50%;bottom:calc(4% + env(safe-area-inset-bottom));width:min(26vw,118px);aspect-ratio:3457.5/936;transform:translateX(-50%);background:var(--bronze);-webkit-mask:url(assets/wordmark.svg) center/contain no-repeat;mask:url(assets/wordmark.svg) center/contain no-repeat;opacity:.95}
-
-/* ── the gatefold card */
-#gate{position:absolute;inset:0;z-index:20;transform-style:preserve-3d;cursor:pointer}
-.half{position:absolute;top:0;bottom:0;width:50%;transform-style:preserve-3d;will-change:transform}
-.half.l{left:0;transform-origin:0 50%}
-.half.r{right:0;transform-origin:100% 50%}
-.half .face{position:absolute;inset:0;background-color:#efe3c9;background-image:var(--cardImg);background-size:200% 100%;backface-visibility:hidden;-webkit-backface-visibility:hidden}
-.half.l .face{background-position:left center}
-.half.r .face{background-position:right center}
-.half .shade{position:absolute;inset:0;pointer-events:none;opacity:0;backface-visibility:hidden;-webkit-backface-visibility:hidden}
-.half.l .shade{background:linear-gradient(90deg,rgba(40,25,5,0),rgba(40,25,5,.55))}
-.half.r .shade{background:linear-gradient(270deg,rgba(40,25,5,0),rgba(40,25,5,.55))}
-.half .back{position:absolute;inset:0;background:linear-gradient(90deg,#d9c9a4,#efe3c9);transform:rotateY(180deg);backface-visibility:hidden;-webkit-backface-visibility:hidden}
-.half .seam{position:absolute;top:0;bottom:0;width:1px;background:rgba(142,106,21,.25)}
-.half.l .seam{right:0}.half.r .seam{left:0}
-/* the seal stays whole: it lifts off the card before the card opens */
-#seal{position:absolute;left:50%;top:var(--sealTop);width:var(--sealW);aspect-ratio:1;margin-left:calc(var(--sealW)/-2);background:var(--sealImg) center/contain no-repeat;filter:drop-shadow(0 8px 12px rgba(60,38,8,.4));z-index:2;will-change:transform}
-#gate{--sealW:min(38vw,190px);--sealTop:calc(57% - min(38vw,190px)/2)}
-#words{position:absolute;left:0;right:0;top:21%;text-align:center;color:var(--ink);padding:0 14%;pointer-events:none}
-#words .k{font-size:clamp(12px,3.4vw,15px);font-weight:400;letter-spacing:.26em;text-transform:uppercase;color:var(--bronze)}
-#words .n{font-size:clamp(30px,8.8vw,42px);line-height:1.16;margin-top:.45em}
-#touch{position:absolute;left:0;right:0;bottom:calc(11% + env(safe-area-inset-bottom));text-align:center;font-size:13px;font-weight:400;letter-spacing:.26em;text-transform:uppercase;color:var(--bronze);opacity:0;pointer-events:none}
-#sealGlow{position:absolute;left:50%;top:57%;width:calc(var(--sealW)*1.6);aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(201,160,74,.35),transparent 65%);pointer-events:none;opacity:0}
-#spill{position:absolute;left:50%;top:0;bottom:0;width:6px;transform:translateX(-50%);background:linear-gradient(180deg,rgba(255,226,160,0),rgba(255,226,160,.95) 30%,rgba(255,226,160,.95) 70%,rgba(255,226,160,0));filter:blur(6px);opacity:0;z-index:19;pointer-events:none}
-
-/* ── story bars and hints */
-#bars{position:absolute;left:12px;right:60px;top:max(12px,env(safe-area-inset-top));display:flex;gap:5px;z-index:30;opacity:0;pointer-events:none}
-#bars i{flex:1;height:2.5px;border-radius:2px;background:rgba(241,234,218,.28);overflow:hidden}
-#bars b{display:block;height:100%;width:100%;background:var(--bone);transform:scaleX(0);transform-origin:0 50%}
-#sound{position:absolute;top:max(4px,calc(env(safe-area-inset-top) - 8px));right:8px;z-index:31;width:44px;height:44px;display:grid;place-items:center;opacity:0;pointer-events:none}
-#sound svg{width:20px;height:20px;stroke:var(--bone);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;opacity:.8}
+/* the greeting, over the courtyard */
+#ui{position:absolute;inset:0;z-index:8;pointer-events:none;visibility:hidden}
+.top{position:absolute;top:max(14px,env(safe-area-inset-top));left:16px;right:8px;display:flex;align-items:center;justify-content:space-between}
+.wm{width:88px;aspect-ratio:3457.5/936;background:var(--bone);-webkit-mask:url(assets/wordmark.svg) center/contain no-repeat;mask:url(assets/wordmark.svg) center/contain no-repeat;opacity:.85}
+#sound{width:44px;height:44px;display:grid;place-items:center;pointer-events:auto}
+#sound svg{width:20px;height:20px;stroke:var(--bone);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;opacity:.85}
 #sound .off{display:none}#sound.muted .on{display:none}#sound.muted .off{display:block}
-#next{position:absolute;left:0;right:0;bottom:calc(5% + env(safe-area-inset-bottom));z-index:25;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:rgba(241,234,218,.85);opacity:0;pointer-events:none;text-shadow:0 1px 10px rgba(0,0,0,.7)}
-#next svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.5}
-#taps{position:absolute;inset:0;z-index:24;display:none}
-
-/* without the animation library, the page still works, plainly */
-.nogsap .half,.nogsap #words,.nogsap #touch{transition:opacity .6s}
-@media (prefers-reduced-motion:reduce){#flame i{animation:none}}
+#msg{position:absolute;left:0;right:0;top:calc(max(14px,env(safe-area-inset-top)) + 64px);text-align:center;padding:0 9%;text-shadow:0 2px 20px rgba(8,8,16,.7),0 0 2px rgba(8,8,16,.4)}
+#msg h1{font-weight:300;font-size:clamp(40px,12vw,60px);line-height:1.06;letter-spacing:.005em}
+#msg p{font-size:clamp(15px,4.3vw,18px);line-height:1.6;margin-top:.8em;color:rgba(241,234,218,.92)}
+#dock{position:absolute;left:0;right:0;bottom:0;padding:0 10px calc(14px + env(safe-area-inset-bottom));background:linear-gradient(180deg,rgba(12,10,8,0),rgba(12,10,8,.72) 38%,rgba(12,10,8,.86));pointer-events:auto}
+#hint{text-align:center;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--warm);padding:30px 0 8px;opacity:0}
+#days{display:flex;justify-content:space-between;gap:2px;padding-top:4px}
+#days button{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 0 4px;opacity:.55;transition:opacity .4s}
+#days button .ic{width:min(13vw,56px);aspect-ratio:1;background-image:var(--icons);background-size:500% 100%;background-repeat:no-repeat;transition:transform .4s,filter .4s}
+#days button span{font-size:10.5px;letter-spacing:.06em;line-height:1.2;text-align:center;white-space:nowrap}
+#days button.on{opacity:1}
+#days button.on .ic{transform:translateY(-3px) scale(1.08);filter:drop-shadow(0 0 12px rgba(240,206,120,.75))}
+#days button.on span{color:var(--warm)}
+#fwdRow{display:flex;justify-content:center;padding-top:10px}
+#fwd{display:inline-flex;align-items:center;gap:9px;padding:11px 20px;border-radius:999px;border:1px solid rgba(201,160,74,.55);background:rgba(142,106,21,.32);color:var(--bone);font-size:14.5px;font-weight:400;letter-spacing:.03em;text-decoration:none;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+#fwd svg{width:17px;height:17px}
+.nojs-hide{display:none}
 </style>
 </head>
 <body>
 <div id="stage">
+ <canvas id="gl" aria-hidden="true"></canvas>
+ <div id="loader"><i></i></div>
+ <div id="touch">Touch to open</div>
+ <div id="hit" role="button" tabindex="0" aria-label="A Diwali wish for you and your family. Touch to open."></div>
 
- <!-- the world behind the card -->
- <section class="scr" id="scene" aria-label="Happy Diwali">
-  <div class="paint sky"></div>
-  <canvas id="glow"></canvas>
-  <div class="paint front"></div>
-  <div class="titles"><h1 id="t1">Happy Diwali</h1><p id="t2">May every room of your home be filled with light, and every day of the new year with warmth.</p></div>
- </section>
-
- <section class="scr" id="days" aria-label="Five days of light">
-  <div class="dim"></div>
-  <div class="inner"><h2>Five days of light</h2><ul id="dayList"></ul></div>
- </section>
-
- <section class="scr" id="light" aria-label="Light the diya">
-  <div class="room"></div>
-  <div class="warmth"></div>
-  <button id="diyaBtn" aria-label="Light the diya"><span id="flame"><i></i></span></button>
-  <div id="lightHint">Tap the diya to light it</div>
-  <div id="after">
-   <h2>and Saal Mubarak</h2>
-   <p>Pass the light on to someone you love.</p>
-   <a id="fwd" href="#" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7a2.8 2.8 0 0 0 1.8-1.3 2.3 2.3 0 0 0 .2-1.3c-.1-.1-.2-.2-.5-.3z"/></svg>Forward on WhatsApp</a>
+ <div id="ui">
+  <div class="top"><div class="wm" role="img" aria-label="Layer 1"></div>
+   <button id="sound" aria-label="Sound on or off"><svg class="on" viewBox="0 0 24 24"><path d="M4 9h3l5-4v14l-5-4H4z"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"/></svg><svg class="off" viewBox="0 0 24 24"><path d="M4 9h3l5-4v14l-5-4H4z"/><path d="M16 9l5 6M21 9l-5 6"/></svg></button></div>
+  <div id="msg"><h1 id="greet"></h1><p id="wish"></p></div>
+  <div id="dock">
+   <div id="hint">Tap a day to change the light</div>
+   <div id="days" role="tablist" aria-label="Five days of light"></div>
+   <div id="fwdRow"><a id="fwd" href="#" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7a2.8 2.8 0 0 0 1.8-1.3 2.3 2.3 0 0 0 .2-1.3c-.1-.1-.2-.2-.5-.3z"/></svg>Forward on WhatsApp</a></div>
   </div>
-  <div class="wm" role="img" aria-label="Layer 1"></div>
- </section>
-
- <div id="taps" aria-hidden="true"></div>
-
- <!-- the gatefold card -->
- <div id="spill"></div>
- <div id="gate" role="button" tabindex="0" aria-label="A Diwali wish for you and your family. Touch to open.">
-  <div class="half l"><div class="face"></div><div class="back"></div><div class="shade"></div><div class="seam"></div></div>
-  <div class="half r"><div class="face"></div><div class="back"></div><div class="shade"></div><div class="seam"></div></div>
-  <div id="sealGlow"></div>
-  <div id="seal"></div>
-  <div id="words"><div class="k">A Diwali wish</div><div class="n">for you<br>and your family</div></div>
-  <div id="touch">Touch to open</div>
  </div>
-
- <div id="bars"><i><b></b></i><i><b></b></i><i><b></b></i></div>
- <button id="sound" aria-label="Sound on or off"><svg class="on" viewBox="0 0 24 24"><path d="M4 9h3l5-4v14l-5-4H4z"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"/></svg><svg class="off" viewBox="0 0 24 24"><path d="M4 9h3l5-4v14l-5-4H4z"/><path d="M16 9l5 6M21 9l-5 6"/></svg></button>
- <div id="next"><span>Tap to continue</span><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
 </div>
 
-<script>
-(()=>{
-const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
-const G=window.gsap; if(!G)document.documentElement.classList.add('nogsap');
+<script type="module">
+import * as THREE from 'three';
+const G=window.gsap;
+const $=s=>document.querySelector(s);
 const PAGE='https://layer-i.github.io/greetings/diwali-2026/';
 const CDN='https://d2ol7oe51mr4n9.cloudfront.net/user_3KBdapm6RLFCt8hz0uFJiAxm6LA/';
-const IMG={card:'d92bf645-2cda-47e2-97bc-e5f788e5b82d.webp',seal:'d9de1222-74c5-491e-8599-c320b7f23078.webp',scene:'73671e00-c9fa-4439-8178-53550da93bda.webp',front:'c9b4b98a-95d8-48a5-9293-5bda6a4cd6b5.webp',icons:'c81eb035-64fd-4790-ab85-530886649129.webp',diya:'84051653-8523-4925-a509-ebfb342d455c.webp'};
-const root=document.documentElement.style;
-for(const k in IMG) root.setProperty('--'+k+'Img',`url(${CDN+IMG[k]})`);
-const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const A={card:'d92bf645-2cda-47e2-97bc-e5f788e5b82d.webp',seal:'d9de1222-74c5-491e-8599-c320b7f23078.webp',front:'c9b4b98a-95d8-48a5-9293-5bda6a4cd6b5.webp',icons:'c81eb035-64fd-4790-ab85-530886649129.webp',mask:'9af36c7a-1ddf-4166-9f9e-4cb761381fcf.png'};
+document.documentElement.style.setProperty('--icons',`url(${CDN+A.icons})`);
 
-/* ── load everything before the card can open; nothing ever shows a blank */
-const load=src=>new Promise(res=>{ const i=new Image(); i.onload=()=>{ (i.decode?i.decode():Promise.resolve()).then(()=>res(true),()=>res(true)); }; i.onerror=()=>{ const j=new Image(); j.onload=()=>res(true); j.onerror=()=>res(false); j.src=src+'?r=1'; }; i.src=src; });
-const coverReady=Promise.all([load(CDN+IMG.card),load(CDN+IMG.seal)]);
-const allReady=Promise.race([Promise.all(Object.values(IMG).map(f=>load(CDN+f))),new Promise(r=>setTimeout(r,9000))]);
+/* ── the five festivals: one courtyard, five lights */
+const F=[
+ {id:'dhanteras',name:'Dhanteras',date:'2026-11-06',img:'d6abfac6-5ada-4cbb-b0e1-2f68f4622205.webp',greet:'Happy Dhanteras',wish:'May new beginnings bring lasting prosperity to your home.',fwd:'Happy Dhanteras.',front:0,sparks:.35},
+ {id:'kali',name:'Kali Chaudas',date:'2026-11-07',img:'cc43f477-7388-46a6-ba9d-a178f4851213.webp',greet:'Kali Chaudas',wish:'May every lamp tonight keep the dark at your door.',fwd:'Wishing you a blessed Kali Chaudas.',front:0,sparks:.25},
+ {id:'diwali',name:'Diwali',date:'2026-11-08',img:'73671e00-c9fa-4439-8178-53550da93bda.webp',greet:'Happy Diwali',wish:'May every room of your home be filled with light.',fwd:'Happy Diwali.',front:1,sparks:1},
+ {id:'bestu',name:'New Year',date:'2026-11-10',img:'f4c30e9f-f7d8-4f54-a4b8-3de64517abea.webp',greet:'Saal Mubarak',wish:'May the new year open every door for you.',fwd:'Saal Mubarak.',front:.0,sparks:0},
+ {id:'bhaidooj',name:'Bhai Dooj',date:'2026-11-11',img:'cc0136d6-4707-4ea7-ba6d-b94a29ff40bc.webp',greet:'Happy Bhai Dooj',wish:'To the bonds that light our lives.',fwd:'Happy Bhai Dooj.',front:0,sparks:0},
+];
+const todayIN=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Kolkata'}).format(new Date());
+let cur=F.findIndex(f=>f.date===todayIN); if(todayIN==='2026-11-09'||cur<0)cur=2;
 
 /* ── sound: soft, made in the browser, led by the motion */
 let ac=null, muted=false;
 const sfx=type=>{ if(muted)return; try{
   ac=ac||new (window.AudioContext||window.webkitAudioContext)(); if(ac.state==='suspended')ac.resume();
-  const t=ac.currentTime, len={crack:.3,swing:2.2,tick:.12,light:1.2}[type];
+  const t=ac.currentTime, len={click:.25,swing:1.8,sweep:1.6,tick:.12}[type];
   const buf=ac.createBuffer(1,Math.ceil(ac.sampleRate*len),ac.sampleRate), d=buf.getChannelData(0);
   for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;
   const src=ac.createBufferSource(); src.buffer=buf; const f=ac.createBiquadFilter(), g=ac.createGain(); f.type='bandpass';
-  const ramp=(a,b,c)=>{g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(a,t+b);g.gain.exponentialRampToValueAtTime(.0001,t+c);};
-  if(type==='crack'){f.frequency.value=1700;f.Q.value=.9;ramp(.32,.004,.2);}
-  if(type==='swing'){f.frequency.setValueAtTime(260,t);f.frequency.exponentialRampToValueAtTime(1900,t+1.9);f.Q.value=.5;ramp(.07,.9,2.1);}
-  if(type==='tick'){f.frequency.value=2600;f.Q.value=1.4;ramp(.05,.003,.09);}
-  if(type==='light'){f.frequency.setValueAtTime(420,t);f.frequency.exponentialRampToValueAtTime(1300,t+.45);f.Q.value=.7;ramp(.14,.04,1.15);}
+  const env=(a,b,c)=>{g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(a,t+b);g.gain.exponentialRampToValueAtTime(.0001,t+c);};
+  if(type==='click'){f.frequency.value=1900;f.Q.value=1.1;env(.28,.003,.16);}
+  if(type==='swing'){f.frequency.setValueAtTime(240,t);f.frequency.exponentialRampToValueAtTime(1500,t+1.5);f.Q.value=.5;env(.06,.7,1.75);}
+  if(type==='sweep'){f.frequency.setValueAtTime(900,t);f.frequency.exponentialRampToValueAtTime(3200,t+1.3);f.Q.value=.6;env(.035,.6,1.55);}
+  if(type==='tick'){f.frequency.value=2600;f.Q.value=1.4;env(.05,.003,.09);}
   src.connect(f).connect(g).connect(ac.destination); src.start(t); src.stop(t+len);
 }catch(e){} };
 $('#sound').addEventListener('click',e=>{e.stopPropagation();muted=!muted;$('#sound').classList.toggle('muted',muted);});
 
-/* ── five days, today marked in India time */
-const DAYS=[['Dhanteras','2026-11-06','Friday 6 November'],['Kali Chaudas','2026-11-07','Saturday 7 November'],['Diwali','2026-11-08','Sunday 8 November'],['Bestu Varas · New Year','2026-11-10','Tuesday 10 November'],['Bhai Dooj','2026-11-11','Wednesday 11 November']];
-const fmt=d=>new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Kolkata'}).format(d);
-const today=fmt(new Date()), tom=fmt(new Date(Date.now()+864e5));
-$('#dayList').innerHTML=DAYS.map((d,i)=>`<li class="${d[1]===today||(today==='2026-11-09'&&i===2)?'today':d[1]===tom?'tomorrow':''}"><div class="ic" style="background-position:${i*25}% 0"></div><div><b>${d[0]}</b><span>${d[2]}</span></div></li>`).join('');
-
-/* ── the cover appears once its paper and seal are ready */
-const showCover=()=>{ if(G){ G.fromTo('.half',{opacity:0},{opacity:1,duration:.8,ease:'power2.out'}); G.fromTo('#words',{opacity:0,y:10},{opacity:1,y:0,duration:1,delay:.25,ease:'power2.out'}); } };
-let ready=false, wantOpen=false;
-coverReady.then(showCover);
-allReady.then(()=>{ ready=true;
-  if(G){ G.to('#touch',{opacity:1,duration:.8,ease:'power2.out'}); G.to('#touch',{opacity:.35,duration:1.4,repeat:-1,yoyo:true,ease:'sine.inOut',delay:.8}); G.to('#sealGlow',{opacity:1,duration:1.4,repeat:-1,yoyo:true,ease:'sine.inOut'}); }
-  else $('#touch').style.opacity=1;
-  if(wantOpen)openCard(); });
-
-/* ── screens and story bars */
-const screens=['scene','days','light'], HOLD={scene:8,days:8};
-let idx=-1, barTween=null, opened=false, interacted=false;
-const bars=$$('#bars b');
-function setBars(n){ bars.forEach((b,i)=>{ if(G)G.set(b,{scaleX:i<n?1:0}); else b.style.transform=`scaleX(${i<n?1:0})`; }); }
-function runBar(n){ if(barTween)barTween.kill(); barTween=null; const id=screens[n];
-  if(!G||!HOLD[id]){ if(id==='light'&&G)G.to(bars[n],{scaleX:1,duration:.6}); return; }
-  barTween=G.fromTo(bars[n],{scaleX:0},{scaleX:1,duration:HOLD[id],ease:'none',onComplete:()=>go(n+1,1)}); }
-function enter(n,dir){ const el=$('#'+screens[n]); el.classList.add('on');
-  if(!G)return;
-  G.fromTo(el,{xPercent:dir*9,opacity:0},{xPercent:0,opacity:1,duration:.9,ease:'power3.out'});
-  if(screens[n]==='days') G.fromTo('#days li',{opacity:0,y:14},{opacity:(i,t)=>t.classList.contains('today')?1:.62,y:0,duration:.7,stagger:.09,delay:.25,ease:'power2.out'});
-  if(screens[n]==='scene'&&dir!==0) G.fromTo('#scene .sky',{scale:1.06},{scale:1,duration:HOLD.scene,ease:'none'});
+/* ── the greeting overlay */
+const days=$('#days');
+days.innerHTML=F.map((f,i)=>`<button role="tab" data-i="${i}" aria-label="${f.name}"><div class="ic" style="background-position:${i*25}% 0"></div><span>${f.name}</span></button>`).join('');
+function setText(i,animate){
+  const f=F[i]; [...days.children].forEach((b,j)=>{b.classList.toggle('on',j===i);b.setAttribute('aria-selected',j===i);});
+  if(!animate||!G){ $('#greet').textContent=f.greet; $('#wish').textContent=f.wish; return; }
+  G.to('#msg',{opacity:0,y:-8,duration:.35,ease:'power2.in',onComplete:()=>{ $('#greet').textContent=f.greet; $('#wish').textContent=f.wish; G.fromTo('#msg',{opacity:0,y:10},{opacity:1,y:0,duration:.8,ease:'power2.out'}); }});
 }
-function leave(n,dir){ const el=$('#'+screens[n]); if(!G){el.classList.remove('on');return;}
-  G.to(el,{xPercent:-dir*9,opacity:0,duration:.6,ease:'power2.in',onComplete:()=>{el.classList.remove('on');G.set(el,{xPercent:0});}}); }
-function go(n,dir){ if(n<0||n>=screens.length||n===idx)return;
-  if(idx>=0){ leave(idx,dir); sfx('tick'); }
-  idx=n; setBars(n); enter(n,dir); runBar(n);
-  $('#taps').style.display=screens[n]==='light'?'none':'block';
-  if(screens[n]==='light')lightIntro();
-}
-function nudge(){ if(interacted)return; interacted=true; if(G)G.to('#next',{opacity:0,duration:.4}); }
+$('#fwd').addEventListener('click',e=>{ e.preventDefault(); location.href='https://wa.me/?text='+encodeURIComponent(F[cur].fwd+' A little light for you: '+PAGE); });
 
-/* taps, holds and swipes */
-let px=0, py=0, pt=0, held=false;
-const T=$('#taps');
-T.addEventListener('pointerdown',e=>{ px=e.clientX; py=e.clientY; pt=performance.now(); held=false;
-  setTimeout(()=>{ if(pt&&performance.now()-pt>=240){ held=true; barTween&&barTween.pause(); } },250); });
-T.addEventListener('pointerup',e=>{ const dx=e.clientX-px, dy=e.clientY-py, dt=performance.now()-pt; pt=0;
-  if(held){ held=false; barTween&&barTween.resume(); return; }
-  nudge();
-  if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)){ go(idx+(dx<0?1:-1),dx<0?1:-1); return; }
-  if(dt<500){ const r=$('#stage').getBoundingClientRect(); const back=(e.clientX-r.left)<r.width*.3; go(idx+(back?-1:1),back?-1:1); } });
-T.addEventListener('pointercancel',()=>{ pt=0; if(held){held=false;barTween&&barTween.resume();} });
-// on the last screen, a swipe right or a tap at the far left goes back
-$('#light').addEventListener('pointerdown',e=>{px=e.clientX;py=e.clientY;});
-$('#light').addEventListener('pointerup',e=>{ if(e.target.closest('#diyaBtn,#fwd'))return; const dx=e.clientX-px; const r=$('#stage').getBoundingClientRect();
-  if(dx>45||(Math.abs(dx)<8&&e.clientX-r.left<r.width*.15)) go(idx-1,-1); });
-document.addEventListener('keydown',e=>{ if(!opened){ if(e.key==='Enter'||e.key===' '){e.preventDefault();openCard();} return; }
-  if(e.key==='ArrowRight')go(idx+1,1); if(e.key==='ArrowLeft')go(idx-1,-1); });
+/* ── loading helpers */
+const loadImg=src=>new Promise((res,rej)=>{ const i=new Image(); i.crossOrigin='anonymous'; i.onload=()=>res(i); i.onerror=()=>{ const j=new Image(); j.crossOrigin='anonymous'; j.onload=()=>res(j); j.onerror=rej; j.src=src+'?r=1'; }; i.src=src; });
+const fontsReady=Promise.all([document.fonts.load("300 80px 'Bai Jamjuree'"),document.fonts.load("400 30px 'Bai Jamjuree'")]).catch(()=>{});
 
-/* ── the opening: one object. The seal breaks on the seam and the card swings open */
-function openCard(){
-  if(opened)return; if(!ready){ wantOpen=true; if(G)G.fromTo('#seal',{scale:1},{scale:.95,duration:.12,yoyo:true,repeat:1}); return; }
-  opened=true;
-  try{ if(typeof DeviceOrientationEvent!=='undefined'&&DeviceOrientationEvent.requestPermission) DeviceOrientationEvent.requestPermission().catch(()=>{}); }catch(e){}
-  $('#scene').classList.add('on');
-  if(!G){ $('#gate').style.display='none'; idx=0; setBars(0); $('#bars').style.opacity=1; $('#sound').style.opacity=1; $('#sound').style.pointerEvents='auto'; $('#taps').style.display='block'; return; }
-  G.killTweensOf('#touch,#sealGlow');
-  G.set('#scene .sky',{scale:1.14}); G.set('#scene .front',{scale:1.2,y:30}); G.set('#t1,#t2',{opacity:0,y:16});
-  const tl=G.timeline({defaults:{ease:'power3.inOut'}});
-  tl.to('#seal',{scale:.95,duration:.12,ease:'power2.out',onStart:()=>sfx('crack')})
-    .to('#words,#touch,#sealGlow',{opacity:0,y:-8,duration:.35,ease:'power2.out'},'<')
-    .to('#seal',{scale:1.1,y:-14,filter:'drop-shadow(0 26px 26px rgba(60,38,8,.35))',duration:.5,ease:'power2.out'})
-    .to('#seal',{y:'-=70',scale:.9,opacity:0,duration:.55,ease:'power2.in'})
-    .to('#spill',{opacity:1,duration:.25,ease:'power1.out'},'-=.2')
-    .add('swing')
-    .to('.half.l',{rotationY:-112,duration:1.9,onStart:()=>sfx('swing')},'swing')
-    .to('.half.r',{rotationY:112,duration:1.9},'swing')
-    .to('.half .shade',{opacity:1,duration:1.2,ease:'power1.in'},'swing')
-    .to('#spill',{scaleX:60,opacity:0,duration:1.3,ease:'power2.out'},'swing+=.15')
-    .to('#scene .sky',{scale:1.06,duration:2.6,ease:'power2.out'},'swing')
-    .to('#scene .front',{scale:1,y:0,duration:2.2,ease:'power3.out'},'swing+=.1')
-    .to('.half',{opacity:0,duration:.5,ease:'power1.in'},'swing+=1.35')
-    .to('#t1',{opacity:1,y:0,duration:1.1,ease:'power2.out'},'swing+=1.1')
-    .to('#t2',{opacity:1,y:0,duration:1.1,ease:'power2.out'},'swing+=1.45')
-    .add(()=>{ $('#gate').style.display='none'; $('#spill').style.display='none';
-      idx=0; setBars(0); runBar(0); G.to('#scene .sky',{scale:1,duration:HOLD.scene,ease:'none'});
-      $('#taps').style.display='block'; G.to('#bars,#sound',{opacity:1,duration:.6}); $('#sound').style.pointerEvents='auto';
-      G.to('#next',{opacity:1,duration:.8,delay:1.6}); G.to('#next svg',{y:4,duration:.9,repeat:-1,yoyo:true,ease:'sine.inOut',delay:1.6});
-    },'swing+=1.9');
-}
-$('#gate').addEventListener('click',openCard);
+/* ── 3D or plain? */
+const canvas=$('#gl');
+let renderer=null;
+try{ renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false,powerPreference:'high-performance'}); }catch(e){ renderer=null; }
+if(!renderer){ plainVersion(); } else { threeVersion().catch(err=>{ console.error(err); plainVersion(); }); }
 
-/* ── the courtyard lives: depth with tilt, slow drift otherwise, rising sparks */
-let tx=0,ty=0,cx=0,cy=0,tilt=false;
-addEventListener('deviceorientation',e=>{ if(e.gamma==null)return; tilt=true; tx=Math.max(-1,Math.min(1,e.gamma/25)); ty=Math.max(-1,Math.min(1,(e.beta-50)/25)); });
-const cv=$('#glow'), g=cv.getContext('2d');
-const sparks=Array.from({length:34},()=>({x:Math.random(),y:.4+Math.random()*.6,v:.0005+Math.random()*.0011,s:.8+Math.random()*1.8,p:Math.random()*6.28}));
-function frame(t){
-  if(idx===0&&!reduce){
-    if(!tilt){ tx=Math.sin(t/5200)*.5; ty=Math.cos(t/6400)*.3; }
-    cx+=(tx-cx)*.05; cy+=(ty-cy)*.05;
-    $('#scene .front').style.translate=`${-cx*14}px ${-cy*9}px`;
-    $('#scene .sky').style.translate=`${-cx*5}px ${-cy*3}px`;
-    const dpr=Math.min(devicePixelRatio,2), w=cv.clientWidth*dpr, h=cv.clientHeight*dpr;
-    if(cv.width!==w||cv.height!==h){cv.width=w;cv.height=h;} else g.clearRect(0,0,w,h);
-    const fl=.92+.05*Math.sin(t/140)+.03*Math.sin(t/61);
-    const gr=g.createRadialGradient(w*.5,h*.78,0,w*.5,h*.78,h*.55); gr.addColorStop(0,`rgba(240,180,80,${.14*fl})`); gr.addColorStop(1,'rgba(240,180,80,0)');
-    g.fillStyle=gr; g.fillRect(0,0,w,h);
-    for(const s of sparks){ s.y-=s.v; if(s.y<.3){s.y=1;s.x=Math.random();}
-      const a=Math.min(1,(s.y-.3)*2.2)*(.5+.5*Math.sin(t/320+s.p));
-      g.fillStyle=`rgba(255,216,150,${(.5*a).toFixed(3)})`; g.beginPath(); g.arc((s.x+Math.sin(t/2200+s.p)*.012)*w,s.y*h,s.s*dpr,0,7); g.fill(); }
+async function threeVersion(){
+  const stage=$('#stage');
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  renderer.outputColorSpace=THREE.SRGBColorSpace;
+  renderer.toneMapping=THREE.NoToneMapping;
+  renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+  renderer.setClearColor(0xe9dcc0,1);
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(40,1,.05,40);
+  const TAN=Math.tan(THREE.MathUtils.degToRad(20));
+  const visH=d=>2*d*TAN;
+
+  // load the cover first, the courtyard alongside
+  const texLoader=img=>{ const t=new THREE.Texture(img); t.colorSpace=THREE.SRGBColorSpace; t.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy()); t.needsUpdate=true; return t; };
+  const [cardImg,sealImg]=await Promise.all([loadImg(CDN+A.card),loadImg(CDN+A.seal),fontsReady]);
+  const courtPromise=Promise.all([loadImg(CDN+F[cur].img),loadImg(CDN+A.mask),loadImg(CDN+A.front)]);
+
+  // the card face: the painted card with its words printed across the fold, as on a real gatefold
+  const cc=document.createElement('canvas'); cc.width=1080; cc.height=1910; const x=cc.getContext('2d');
+  x.drawImage(cardImg,0,0,1080,1910);
+  x.textAlign='center'; x.fillStyle='#8E6A15'; x.font="400 30px 'Bai Jamjuree'";
+  if('letterSpacing' in x) x.letterSpacing='8px';
+  x.fillText('A DIWALI WISH',540,410);
+  if('letterSpacing' in x) x.letterSpacing='0px';
+  x.fillStyle='#1B1A16'; x.font="300 84px 'Bai Jamjuree'"; x.fillText('for you',540,520); x.fillText('and your family',540,620);
+  const cardTex=texLoader(cc); const sealTex=texLoader(sealImg);
+
+  // ── the card: two pages that bend as they turn
+  const card=new THREE.Group(); scene.add(card);
+  const SEG=28;
+  const pageMat=new THREE.MeshStandardMaterial({map:cardTex,roughness:.9,metalness:0});
+  const backMat=new THREE.MeshStandardMaterial({color:0xe6d6b4,roughness:.95,metalness:0,side:THREE.BackSide});
+  function makePage(side){ // side -1 = left page (hinge at left edge), +1 = right page
+    const geo=new THREE.PlaneGeometry(1,1,SEG,1);
+    const uv=geo.attributes.uv;
+    for(let i=0;i<uv.count;i++){ const u=uv.getX(i); uv.setX(i, side<0? u*.5 : .5+u*.5); }
+    const g=new THREE.Group();
+    const front=new THREE.Mesh(geo,pageMat), back=new THREE.Mesh(geo,backMat);
+    front.castShadow=back.castShadow=true; front.receiveShadow=true;
+    g.add(front,back); card.add(g);
+    return {side,geo,g,front,back,angle:0,bend:0};
   }
-  requestAnimationFrame(frame);
-}
-requestAnimationFrame(frame);
+  const L=makePage(-1), R=makePage(1);
+  const sealGeo=new THREE.PlaneGeometry(1,1);
+  const seal=new THREE.Mesh(sealGeo,new THREE.MeshStandardMaterial({map:sealTex,transparent:true,roughness:.45,metalness:.35,alphaTest:.02}));
+  seal.castShadow=true; scene.add(seal);
+  const sealShadow=new THREE.Mesh(new THREE.CircleGeometry(.5,40),new THREE.MeshBasicMaterial({color:0x3c2608,transparent:true,opacity:.18,depthWrite:false}));
+  scene.add(sealShadow);
 
-/* ── light it: the diya catches and the whole courtyard warms */
-let lit=false;
-function lightIntro(){ if(lit||!G)return; G.fromTo('#diyaBtn',{opacity:0,y:20},{opacity:1,y:0,duration:.9,delay:.2,ease:'power3.out'});
-  G.fromTo('#lightHint',{opacity:0},{opacity:1,duration:.8,delay:.7}); G.to('#lightHint',{opacity:.4,duration:1.3,repeat:-1,yoyo:true,ease:'sine.inOut',delay:1.5}); }
-$('#diyaBtn').addEventListener('click',()=>{ if(lit)return; lit=true; sfx('light');
-  if(!G){ $('#flame').style.transform='translate(-50%,-100%) scale(1)'; $('#after').style.visibility='visible'; $('#lightHint').style.display='none'; return; }
-  G.killTweensOf('#lightHint'); G.to('#lightHint',{opacity:0,duration:.3});
-  G.timeline()
-   .to('#flame',{scale:1,duration:.9,ease:'elastic.out(1,.55)'})
-   .to('#light .room',{filter:'brightness(.55) saturate(1)',duration:2.4,ease:'power2.out'},'-=.6')
-   .to('#light .warmth',{opacity:1,duration:2,ease:'power2.out'},'<')
-   .set('#after',{visibility:'visible'},'-=1.6')
-   .fromTo('#after h2',{opacity:0,y:14},{opacity:1,y:0,duration:1,ease:'power2.out'},'-=1.6')
-   .fromTo('#after p',{opacity:0,y:12},{opacity:1,y:0,duration:1,ease:'power2.out'},'-=.7')
-   .fromTo('#fwd',{opacity:0,y:12},{opacity:1,y:0,duration:.9,ease:'power2.out'},'-=.6');
-});
-$('#fwd').addEventListener('click',e=>{ e.preventDefault(); location.href='https://wa.me/?text='+encodeURIComponent('Happy Diwali. A little light for you: '+PAGE); });
-})();
+  let CW=1,CH=1; // card width and height in world units
+  const pos=new THREE.Vector3();
+  // bend a page: columns of the plane follow an arc from the hinge
+  function shapePage(P){
+    const p=P.geo.attributes.position, half=CW/2, dx=half/SEG;
+    let ax=0, az=0; const xs=[0], zs=[0];
+    for(let i=1;i<=SEG;i++){ const u=i/SEG; const th=P.angle+P.bend*u*u; ax+=Math.cos(th)*dx; az+=Math.sin(th)*dx; xs.push(ax); zs.push(az); }
+    // vertex order: rows top then bottom, columns 0..SEG
+    for(let r=0;r<2;r++) for(let i=0;i<=SEG;i++){
+      const idx=r*(SEG+1)+i; const col=P.side<0? i : SEG-i;
+      const xx=P.side<0? -half+xs[col] : half-xs[col];
+      p.setXYZ(idx, xx, (r===0? CH/2 : -CH/2), zs[col]+(P.side<0?.0025:0));
+    }
+    p.needsUpdate=true; P.geo.computeVertexNormals(); P.geo.computeBoundingSphere();
+    return {x:P.side<0? -half+xs[SEG] : half-xs[SEG], z:zs[SEG]+(P.side<0?.0025:0), th:P.angle+P.bend};
+  }
+
+  // ── the courtyard: sky, building and garlands at three depths
+  const [ambImg,maskImg,frontImg]=await courtPromise;
+  const maskTex=new THREE.Texture(maskImg); maskTex.needsUpdate=true;
+  const ambTex={}; ambTex[cur]=texLoader(ambImg);
+  const vert=`varying vec2 vUv; void main(){ vUv=uv; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.); }`;
+  const frag=(useMask)=>`
+    uniform sampler2D a; uniform sampler2D b; uniform sampler2D m; uniform float p; uniform float glow; varying vec2 vUv;
+    void main(){
+      vec4 ca=texture2D(a,vUv), cb=texture2D(b,vUv);
+      float s=vUv.x*.75+(1.-vUv.y)*.25;           // the new light washes in from the left
+      float e=smoothstep(p*1.4-.2, p*1.4-.02, s);
+      vec3 col=mix(cb.rgb, ca.rgb, e);
+      float band=(1.-abs(e*2.-1.))*glow;            // a warm edge where the light is changing
+      col+=band*vec3(.45,.30,.12);
+      float al=1.;
+      ${useMask?'al=texture2D(m,vUv).r;':''}
+      gl_FragColor=vec4(col,al);
+      #include <colorspace_fragment>
+    }`;
+  const mkLayer=(useMask)=>new THREE.ShaderMaterial({uniforms:{a:{value:ambTex[cur]},b:{value:ambTex[cur]},m:{value:maskTex},p:{value:1},glow:{value:0}},vertexShader:vert,fragmentShader:frag(useMask),transparent:useMask,depthWrite:!useMask});
+  const skyMat=mkLayer(false), bldMat=mkLayer(true);
+  const sky=new THREE.Mesh(new THREE.PlaneGeometry(1,1),skyMat), bld=new THREE.Mesh(new THREE.PlaneGeometry(1,1),bldMat);
+  const frontTex=texLoader(frontImg);
+  const front=new THREE.Mesh(new THREE.PlaneGeometry(1,1),new THREE.MeshBasicMaterial({map:frontTex,transparent:true,depthWrite:false,opacity:F[cur].front}));
+  const court=new THREE.Group(); court.add(sky,bld,front); scene.add(court);
+  const Z={card:0,cam0:3,cam1:1.15,bld:-2.2,sky:-3.0,front:-1.45};
+  sky.position.z=Z.sky; bld.position.z=Z.bld; front.position.z=Z.front;
+
+  // sparks rising in the courtyard air
+  const NS=90, sp=new Float32Array(NS*3), sv=new Float32Array(NS);
+  for(let i=0;i<NS;i++){ sp[i*3]=(Math.random()-.5)*2.2; sp[i*3+1]=-1.3+Math.random()*2.4; sp[i*3+2]=-2.1+Math.random()*1.1; sv[i]=.0012+Math.random()*.0025; }
+  const sg=new THREE.BufferGeometry(); sg.setAttribute('position',new THREE.BufferAttribute(sp,3));
+  const dot=document.createElement('canvas'); dot.width=dot.height=64; { const d=dot.getContext('2d'); const gr=d.createRadialGradient(32,32,0,32,32,32); gr.addColorStop(0,'rgba(255,228,170,1)'); gr.addColorStop(.35,'rgba(255,200,110,.6)'); gr.addColorStop(1,'rgba(255,190,90,0)'); d.fillStyle=gr; d.fillRect(0,0,64,64); }
+  const sparkMat=new THREE.PointsMaterial({size:.05,map:new THREE.CanvasTexture(dot),transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,opacity:0});
+  const sparks=new THREE.Points(sg,sparkMat); scene.add(sparks);
+
+  // ── light
+  const amb=new THREE.AmbientLight(0xfff4e2,1.55); scene.add(amb);
+  const key=new THREE.DirectionalLight(0xfff0d8,1.9); key.position.set(-1.6,2.2,3.4); key.castShadow=true;
+  key.shadow.mapSize.set(1024,1024); key.shadow.bias=-.0006; key.shadow.normalBias=.02;
+  const sc=key.shadow.camera; sc.left=-1.6; sc.right=1.6; sc.top=2.2; sc.bottom=-2.2; sc.near=.5; sc.far=10;
+  scene.add(key); scene.add(key.target);
+  const spill=new THREE.PointLight(0xffc56b,0,4,1.6); spill.position.set(0,0,-.35); scene.add(spill);
+
+  // ── fit everything to the screen
+  let W=1,H=1;
+  function layout(){
+    const r=stage.getBoundingClientRect(); W=r.width; H=r.height;
+    renderer.setSize(W,H,false); camera.aspect=W/H; camera.updateProjectionMatrix();
+    const ar=1080/1910;
+    // the card covers the screen at the start
+    const vh=visH(Z.cam0-Z.card), vw=vh*camera.aspect;
+    CH=Math.max(vh, vw/ar)*1.02; CW=CH*ar;
+    // each courtyard layer covers the screen at the end, with room for tilt
+    const fit=(z,extra)=>{ const h=visH(Z.cam1-z), w=h*camera.aspect; const hh=Math.max(h,w/ar)*extra; return [hh*ar,hh]; };
+    let [w1,h1]=fit(Z.bld,1.08); bld.scale.set(w1,h1,1);
+    let [w2,h2]=fit(Z.sky,1.12); sky.scale.set(w2,h2,1);
+    let [w3,h3]=fit(Z.front,1.06); front.scale.set(w3,h3,1); front.position.y=0;
+    const sw=Math.min(CW*.36,.62); seal.scale.set(sw,sw,1); sealShadow.scale.set(sw*.98,sw*.98,1);
+  }
+  addEventListener('resize',layout); layout();
+  camera.position.set(0,0,Z.cam0);
+
+  // ── state for the opening
+  const S={press:0,lift:0,peel:0,glow:0,cam:0,fadeCard:0};
+  L.angle=0; R.angle=0;
+  function frameCard(){
+    const eL=shapePage(L), eR=shapePage(R);
+    // the seal is fixed to the left page's edge and presses across onto the right page
+    const sw=seal.scale.x, off=sw*.2;
+    const th=eL.th;
+    seal.position.set(eL.x+Math.cos(th)*off, -CH*.07, eL.z+Math.sin(th)*off+.004+S.lift*.05);
+    seal.rotation.set(0,-th,0); seal.rotateY(-S.peel); seal.scale.setScalar(sw*(1-S.press*.05)); seal.scale.z=1;
+    sealShadow.position.set(seal.position.x+.012,seal.position.y-.018,eL.z+.003); sealShadow.rotation.y=-th;
+    sealShadow.material.opacity=.18*(1-Math.min(1,L.angle*2))+S.lift*.05;
+  }
+
+  // ── tilt: the courtyard layers shift against each other
+  let tx=0,ty=0,cx=0,cy=0,tilt=false;
+  addEventListener('deviceorientation',e=>{ if(e.gamma==null)return; tilt=true; tx=Math.max(-1,Math.min(1,e.gamma/25)); ty=Math.max(-1,Math.min(1,(e.beta-50)/25)); });
+
+  let opened=false, t0=performance.now();
+  function render(now){
+    const t=(now-t0)/1000;
+    frameCard();
+    // camera: from the card, through the opening, into the courtyard
+    const z=Z.cam0+(Z.cam1-Z.cam0)*S.cam;
+    if(!tilt){ tx=Math.sin(t*.19)*.55; ty=Math.cos(t*.15)*.3; }
+    cx+=(tx-cx)*.05; cy+=(ty-cy)*.05;
+    const k=S.cam; // tilt only once inside
+    const breathe=opened?0:Math.sin(t*1.1)*.012;
+    camera.position.set(cx*.12*k, -cy*.08*k+breathe*.3, z);
+    camera.lookAt(cx*.03*k, 0, Z.bld);
+    // sparks
+    const pa=sg.attributes.position.array;
+    for(let i=0;i<NS;i++){ pa[i*3+1]+=sv[i]; pa[i*3]+=Math.sin(t*.7+i)*.0006; if(pa[i*3+1]>1.3){ pa[i*3+1]=-1.3; pa[i*3]=(Math.random()-.5)*2.2; } }
+    sg.attributes.position.needsUpdate=true;
+    spill.intensity=S.glow*3.2;
+    renderer.render(scene,camera);
+    requestAnimationFrame(render);
+  }
+  requestAnimationFrame(render);
+
+  // the cover is ready: reveal it
+  $('#loader').style.opacity=0; setTimeout(()=>$('#loader').remove(),900);
+  setText(cur,false);
+  if(G){ G.to('#touch',{opacity:1,duration:.9,delay:.6}); G.to('#touch',{opacity:.35,duration:1.4,repeat:-1,yoyo:true,ease:'sine.inOut',delay:1.5}); }
+  else $('#touch').style.opacity=1;
+  $('#hit').style.display='block';
+
+  function open(){
+    if(opened)return; opened=true; $('#hit').style.display='none';
+    try{ if(typeof DeviceOrientationEvent!=='undefined'&&DeviceOrientationEvent.requestPermission) DeviceOrientationEvent.requestPermission().catch(()=>{}); }catch(e){}
+    if(!G){ L.angle=2.9; R.angle=2.9; S.cam=1; card.visible=seal.visible=false; showUI(); return; }
+    G.killTweensOf('#touch'); G.to('#touch',{opacity:0,duration:.3});
+    const tl=G.timeline();
+    tl.to(S,{press:1,duration:.12,ease:'power2.out',onStart:()=>sfx('click')})
+      .to(S,{press:0,lift:1,peel:.22,duration:.45,ease:'power2.out'})
+      .to(S,{peel:0,duration:.35,ease:'power2.inOut'},'>-.1')
+      .add('L')
+      .to(L,{angle:2.95,duration:1.7,ease:'power2.inOut',onStart:()=>sfx('swing')},'L')
+      .to(L,{bend:-.42,duration:.85,ease:'sine.out',yoyo:true,repeat:1},'L')
+      .to(S,{glow:.55,duration:.9,ease:'power1.out'},'L+=.25')
+      .add('R','L+=.55')
+      .to(R,{angle:2.95,duration:1.7,ease:'power2.inOut'},'R')
+      .to(R,{bend:-.42,duration:.85,ease:'sine.out',yoyo:true,repeat:1},'R')
+      .to(S,{glow:1,duration:.8,ease:'power1.out'},'R+=.2')
+      .to(sparkMat,{opacity:.9*F[cur].sparks,duration:1.6},'R+=.4')
+      .to(S,{cam:1,duration:2.6,ease:'power2.inOut'},'R+=.35')
+      .to(S,{glow:0,duration:1.2,ease:'power1.in'},'R+=1.6')
+      .add(()=>{ card.visible=false; seal.visible=false; sealShadow.visible=false; },'R+=2.3')
+      .add(showUI,'R+=2.0');
+  }
+  $('#hit').addEventListener('click',open);
+  $('#hit').addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();open();} });
+
+  function showUI(){
+    $('#ui').style.visibility='visible';
+    if(G){ G.fromTo('#msg',{opacity:0,y:14},{opacity:1,y:0,duration:1.1,ease:'power2.out'});
+      G.fromTo('#dock',{opacity:0,y:24},{opacity:1,y:0,duration:1,delay:.35,ease:'power3.out'});
+      G.fromTo('.top',{opacity:0},{opacity:1,duration:.8,delay:.6});
+      G.to('#hint',{opacity:1,duration:.8,delay:1.4}); }
+    // fetch the other four lights quietly
+    F.forEach((f,i)=>{ if(!ambTex[i]) loadImg(CDN+f.img).then(img=>{ ambTex[i]=texLoader(img); renderer.initTexture&&renderer.initTexture(ambTex[i]); }).catch(()=>{}); });
+  }
+
+  // ── tapping a day relights the courtyard
+  let busy=false, hinted=false;
+  days.addEventListener('click',async e=>{
+    const b=e.target.closest('button'); if(!b)return; const i=+b.dataset.i; if(i===cur||busy)return;
+    if(!hinted){ hinted=true; G&&G.to('#hint',{opacity:0,duration:.5}); }
+    busy=true;
+    if(!ambTex[i]){ try{ ambTex[i]=texLoader(await loadImg(CDN+F[i].img)); }catch(err){ busy=false; return; } }
+    cur=i; setText(i,true); sfx('sweep');
+    for(const m of [skyMat,bldMat]){ m.uniforms.b.value=ambTex[i]; m.uniforms.p.value=0; }
+    const done=()=>{ for(const m of [skyMat,bldMat]){ m.uniforms.a.value=ambTex[i]; m.uniforms.p.value=1; m.uniforms.glow.value=0; } busy=false; };
+    if(!G){ done(); front.material.opacity=F[i].front; return; }
+    // uniforms: p goes 0→1 (the new light washes across); a warm edge leads it
+    const st={p:0};
+    G.to(st,{p:1,duration:1.8,ease:'power2.inOut',onUpdate:()=>{ for(const m of [skyMat,bldMat]){ m.uniforms.p.value=st.p; m.uniforms.glow.value=Math.sin(st.p*Math.PI)*.9; } },onComplete:done});
+    G.to(front.material,{opacity:F[i].front,duration:1.4,ease:'power2.inOut'});
+    G.to(sparkMat,{opacity:.9*F[i].sparks,duration:1.4});
+  });
+  // the shader's p means "how far the new light has come": a=old, b=new, e picks old where s is beyond the edge
+}
+
+/* ── for phones without 3D: the same greeting, plainly */
+function plainVersion(){
+  const st=$('#stage'); canvas.style.display='none';
+  const bg=document.createElement('div'); bg.style.cssText='position:absolute;inset:0;background:#141a2e center/cover no-repeat;transition:opacity 1.2s';
+  st.insertBefore(bg,st.firstChild);
+  const cover=document.createElement('div'); cover.style.cssText=`position:absolute;inset:0;z-index:4;background:#efe3c9 url(${CDN+A.card}) center/cover no-repeat;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .9s`;
+  cover.innerHTML=`<div style="color:#8E6A15;font-weight:400;font-size:13px;letter-spacing:.26em;margin-top:-40%">A DIWALI WISH</div><div style="color:#1B1A16;font-size:36px;text-align:center;line-height:1.15;margin-top:12px">for you<br>and your family</div><div style="width:150px;height:150px;margin-top:9vh;background:url(${CDN+A.seal}) center/contain no-repeat"></div>`;
+  st.insertBefore(cover,$('#touch'));
+  $('#loader').remove(); $('#touch').style.opacity=1; $('#hit').style.display='block';
+  const show=i=>{ bg.style.backgroundImage=`url(${CDN+F[i].img})`; setText(i,!!G); };
+  show(cur);
+  $('#hit').addEventListener('click',()=>{ $('#hit').style.display='none'; cover.style.opacity=0; $('#touch').style.opacity=0; setTimeout(()=>cover.remove(),900); $('#ui').style.visibility='visible'; $('#hint').style.opacity=1; },{once:true});
+  days.addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b)return; cur=+b.dataset.i; $('#hint').style.opacity=0; bg.style.opacity=.2; setTimeout(()=>{ show(cur); bg.style.opacity=1; },400); });
+}
 </script>
 </body>
 </html>
