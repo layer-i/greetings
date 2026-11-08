@@ -33,7 +33,7 @@
 html,body{height:100%;background:var(--ink);overflow:hidden;overscroll-behavior:none}
 body{font-family:'Bai Jamjuree',system-ui,sans-serif;font-weight:300;color:var(--bone);display:flex;align-items:center;justify-content:center;-webkit-user-select:none;user-select:none}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
-#stage{position:relative;width:100vw;height:100vh;height:100dvh;overflow:hidden;background:#e9dcc0;touch-action:manipulation}
+#stage{position:relative;width:100vw;height:100vh;height:100dvh;overflow:hidden;background:#15120d;touch-action:manipulation}
 @media (min-aspect-ratio:3/4){#stage{width:min(100vw,calc(100dvh*.5625));border-radius:24px;box-shadow:0 40px 100px rgba(0,0,0,.65)}}
 #gl{position:absolute;inset:0;width:100%;height:100%;display:block}
 
@@ -154,7 +154,7 @@ async function threeVersion(){
   renderer.outputColorSpace=THREE.SRGBColorSpace;
   renderer.toneMapping=THREE.NoToneMapping;
   renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
-  renderer.setClearColor(0xe9dcc0,1);
+  renderer.setClearColor(0x15120d,1);
   const scene=new THREE.Scene();
   const camera=new THREE.PerspectiveCamera(40,1,.05,40);
   const TAN=Math.tan(THREE.MathUtils.degToRad(20));
@@ -168,11 +168,11 @@ async function threeVersion(){
   // the card face: the painted card with its words printed across the fold, as on a real gatefold
   const cc=document.createElement('canvas'); cc.width=1080; cc.height=1910; const x=cc.getContext('2d');
   x.drawImage(cardImg,0,0,1080,1910);
-  x.textAlign='center'; x.fillStyle='#8E6A15'; x.font="400 30px 'Bai Jamjuree'";
+  x.textAlign='center'; x.fillStyle='#8E6A15'; x.font="400 34px 'Bai Jamjuree'";
   if('letterSpacing' in x) x.letterSpacing='8px';
-  x.fillText('A DIWALI WISH',540,410);
+  x.fillText('A DIWALI WISH',540,400);
   if('letterSpacing' in x) x.letterSpacing='0px';
-  x.fillStyle='#1B1A16'; x.font="300 84px 'Bai Jamjuree'"; x.fillText('for you',540,520); x.fillText('and your family',540,620);
+  x.fillStyle='#1B1A16'; x.font="300 100px 'Bai Jamjuree'"; x.fillText('for you',540,525); x.fillText('and your family',540,640);
   const cardTex=texLoader(cc); const sealTex=texLoader(sealImg);
 
   // ── the card: two pages that bend as they turn
@@ -193,9 +193,9 @@ async function threeVersion(){
   const L=makePage(-1), R=makePage(1);
   const sealGeo=new THREE.PlaneGeometry(1,1);
   const seal=new THREE.Mesh(sealGeo,new THREE.MeshStandardMaterial({map:sealTex,transparent:true,roughness:.45,metalness:.35,alphaTest:.02}));
-  seal.castShadow=true; scene.add(seal);
+  seal.castShadow=true; card.add(seal);
   const sealShadow=new THREE.Mesh(new THREE.CircleGeometry(.5,40),new THREE.MeshBasicMaterial({color:0x3c2608,transparent:true,opacity:.18,depthWrite:false}));
-  scene.add(sealShadow);
+  card.add(sealShadow);
 
   let CW=1,CH=1; // card width and height in world units
   const pos=new THREE.Vector3();
@@ -220,7 +220,7 @@ async function threeVersion(){
   const ambTex={}; ambTex[cur]=texLoader(ambImg);
   const vert=`varying vec2 vUv; void main(){ vUv=uv; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.); }`;
   const frag=(useMask)=>`
-    uniform sampler2D a; uniform sampler2D b; uniform sampler2D m; uniform float p; uniform float glow; varying vec2 vUv;
+    uniform sampler2D a; uniform sampler2D b; uniform sampler2D m; uniform float p; uniform float glow; uniform float dim; varying vec2 vUv;
     void main(){
       vec4 ca=texture2D(a,vUv), cb=texture2D(b,vUv);
       float s=vUv.x*.75+(1.-vUv.y)*.25;           // the new light washes in from the left
@@ -228,12 +228,14 @@ async function threeVersion(){
       vec3 col=mix(cb.rgb, ca.rgb, e);
       float band=(1.-abs(e*2.-1.))*glow;            // a warm edge where the light is changing
       col+=band*vec3(.45,.30,.12);
+      float ed=smoothstep(0.,.035,min(min(vUv.x,1.-vUv.x),min(vUv.y,1.-vUv.y)));
+      col*=mix(.25,1.,dim)*ed;
       float al=1.;
       ${useMask?'al=texture2D(m,vUv).r;':''}
       gl_FragColor=vec4(col,al);
       #include <colorspace_fragment>
     }`;
-  const mkLayer=(useMask)=>new THREE.ShaderMaterial({uniforms:{a:{value:ambTex[cur]},b:{value:ambTex[cur]},m:{value:maskTex},p:{value:1},glow:{value:0}},vertexShader:vert,fragmentShader:frag(useMask),transparent:useMask,depthWrite:!useMask});
+  const mkLayer=(useMask)=>new THREE.ShaderMaterial({uniforms:{a:{value:ambTex[cur]},b:{value:ambTex[cur]},m:{value:maskTex},p:{value:1},glow:{value:0},dim:{value:0}},vertexShader:vert,fragmentShader:frag(useMask),transparent:useMask,depthWrite:!useMask});
   const skyMat=mkLayer(false), bldMat=mkLayer(true);
   const sky=new THREE.Mesh(new THREE.PlaneGeometry(1,1),skyMat), bld=new THREE.Mesh(new THREE.PlaneGeometry(1,1),bldMat);
   const frontTex=texLoader(frontImg);
@@ -251,8 +253,8 @@ async function threeVersion(){
   const sparks=new THREE.Points(sg,sparkMat); scene.add(sparks);
 
   // ── light
-  const amb=new THREE.AmbientLight(0xfff4e2,1.55); scene.add(amb);
-  const key=new THREE.DirectionalLight(0xfff0d8,1.9); key.position.set(-1.6,2.2,3.4); key.castShadow=true;
+  const amb=new THREE.AmbientLight(0xffffff,1.6); scene.add(amb);
+  const key=new THREE.DirectionalLight(0xfffaf2,1.7); key.position.set(-1.6,2.2,3.4); key.castShadow=true;
   key.shadow.mapSize.set(1024,1024); key.shadow.bias=-.0006; key.shadow.normalBias=.02;
   const sc=key.shadow.camera; sc.left=-1.6; sc.right=1.6; sc.top=2.2; sc.bottom=-2.2; sc.near=.5; sc.far=10;
   scene.add(key); scene.add(key.target);
@@ -266,7 +268,7 @@ async function threeVersion(){
     const ar=1080/1910;
     // the card covers the screen at the start
     const vh=visH(Z.cam0-Z.card), vw=vh*camera.aspect;
-    CH=Math.max(vh, vw/ar)*1.02; CW=CH*ar;
+    CH=Math.min(vh*.8, vw*.86/ar); CW=CH*ar; card.position.y=vh*.025;
     // each courtyard layer covers the screen at the end, with room for tilt
     const fit=(z,extra)=>{ const h=visH(Z.cam1-z), w=h*camera.aspect; const hh=Math.max(h,w/ar)*extra; return [hh*ar,hh]; };
     let [w1,h1]=fit(Z.bld,1.08); bld.scale.set(w1,h1,1);
@@ -278,7 +280,7 @@ async function threeVersion(){
   camera.position.set(0,0,Z.cam0);
 
   // ── state for the opening
-  const S={press:0,lift:0,peel:0,glow:0,cam:0,fadeCard:0};
+  const S={press:0,lift:0,peel:0,glow:0,cam:0,fadeCard:0,dimUp:0};
   L.angle=0; R.angle=0;
   function frameCard(){
     const eL=shapePage(L), eR=shapePage(R);
@@ -305,6 +307,9 @@ async function threeVersion(){
     cx+=(tx-cx)*.05; cy+=(ty-cy)*.05;
     const k=S.cam; // tilt only once inside
     const breathe=opened?0:Math.sin(t*1.1)*.012;
+    const idle=1-Math.min(1,L.angle*3);
+    card.rotation.y=Math.sin(t*.55)*.07*idle; card.rotation.x=Math.cos(t*.43)*.035*idle;
+    skyMat.uniforms.dim.value=bldMat.uniforms.dim.value=S.dimUp;
     camera.position.set(cx*.12*k, -cy*.08*k+breathe*.3, z);
     camera.lookAt(cx*.03*k, 0, Z.bld);
     // sparks
@@ -318,6 +323,7 @@ async function threeVersion(){
   requestAnimationFrame(render);
 
   // the cover is ready: reveal it
+  $('#touch').style.color='var(--gold)'; $('#touch').style.bottom='calc(4.5% + env(safe-area-inset-bottom))';
   $('#loader').style.opacity=0; setTimeout(()=>$('#loader').remove(),900);
   setText(cur,false);
   if(G){ G.to('#touch',{opacity:1,duration:.9,delay:.6}); G.to('#touch',{opacity:.35,duration:1.4,repeat:-1,yoyo:true,ease:'sine.inOut',delay:1.5}); }
@@ -327,7 +333,7 @@ async function threeVersion(){
   function open(){
     if(opened)return; opened=true; $('#hit').style.display='none';
     try{ if(typeof DeviceOrientationEvent!=='undefined'&&DeviceOrientationEvent.requestPermission) DeviceOrientationEvent.requestPermission().catch(()=>{}); }catch(e){}
-    if(!G){ L.angle=2.9; R.angle=2.9; S.cam=1; card.visible=seal.visible=false; showUI(); return; }
+    if(!G){ L.angle=2.9; R.angle=2.9; S.cam=1; S.dimUp=1; card.visible=seal.visible=false; showUI(); return; }
     G.killTweensOf('#touch'); G.to('#touch',{opacity:0,duration:.3});
     const tl=G.timeline(); window.__open=tl; if(TEST) tl.pause();
     tl.to(S,{press:1,duration:.12,ease:'power2.out',onStart:()=>sfx('click')})
@@ -337,6 +343,7 @@ async function threeVersion(){
       .to(L,{angle:2.95,duration:1.7,ease:'power2.inOut',onStart:()=>sfx('swing')},'L')
       .to(L,{bend:-.42,duration:.85,ease:'sine.out',yoyo:true,repeat:1},'L')
       .to(S,{glow:.55,duration:.9,ease:'power1.out'},'L+=.25')
+      .to(S,{dimUp:1,duration:2.2,ease:'power1.inOut'},'L+=.2')
       .add('R','L+=.55')
       .to(R,{angle:2.95,duration:1.7,ease:'power2.inOut'},'R')
       .to(R,{bend:-.42,duration:.85,ease:'sine.out',yoyo:true,repeat:1},'R')
