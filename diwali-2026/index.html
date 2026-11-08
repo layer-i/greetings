@@ -254,7 +254,10 @@ async function threeVersion(){
   const sky=new THREE.Mesh(new THREE.PlaneGeometry(1,1),skyMat), bld=new THREE.Mesh(new THREE.PlaneGeometry(1,1),bldMat);
   const frontTex=texLoader(blank);
   const courtDone=courtPromise.then(([ambImg,maskImg,frontImg])=>{
-    for(const [t,im] of [[ambTex[cur],ambImg],[maskTex,maskImg],[frontTex,frontImg]]){ t.image=im; t.needsUpdate=true; }
+    // fresh textures: three.js allocates fixed-size storage, so the placeholders cannot simply be resized
+    const c0=cur; ambTex[c0]=texLoader(ambImg); const mT=new THREE.Texture(maskImg); mT.needsUpdate=true;
+    for(const m of [skyMat,bldMat]){ m.uniforms.a.value=m.uniforms.b.value=ambTex[c0]; m.uniforms.m.value=mT; }
+    front.material.map=texLoader(frontImg); front.material.needsUpdate=true;
   });
   const front=new THREE.Mesh(new THREE.PlaneGeometry(1,1),new THREE.MeshBasicMaterial({map:frontTex,transparent:true,depthWrite:false,opacity:F[cur].front}));
   const court=new THREE.Group(); court.add(sky,bld,front); scene.add(court);
