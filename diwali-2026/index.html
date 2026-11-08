@@ -11,11 +11,11 @@
 <meta property="og:site_name" content="Layer 1">
 <meta property="og:title" content="Happy Diwali">
 <meta property="og:description" content="Tap to receive our Diwali greetings.">
-<meta property="og:image" content="https://d2ol7oe51mr4n9.cloudfront.net/user_3KBdapm6RLFCt8hz0uFJiAxm6LA/98552884-e5c7-4950-9629-29cb0d19c260.jpg">
+<meta property="og:image" content="https://d2ol7oe51mr4n9.cloudfront.net/user_3KBdapm6RLFCt8hz0uFJiAxm6LA/dd4f5b0c-5083-4fc4-8229-e0a63295ba74.jpg">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="A lit haveli courtyard on Diwali night with the Layer 1 seal">
+<meta property="og:image:alt" content="A haveli courtyard dressed for Diwali night, lit in warm saffron">
 <meta property="og:url" content="https://layer-i.github.io/greetings/diwali-2026/">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://d2ol7oe51mr4n9.cloudfront.net" crossorigin>
@@ -51,20 +51,20 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 #sound{width:44px;height:44px;display:grid;place-items:center;pointer-events:auto}
 #sound svg{width:20px;height:20px;stroke:var(--bone);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;opacity:.85}
 #sound .off{display:none}#sound.muted .on{display:none}#sound.muted .off{display:block}
-#scrim{position:absolute;left:0;right:0;top:0;height:42%;background:linear-gradient(180deg,rgba(10,9,14,.78),rgba(10,9,14,.45) 22%,rgba(10,9,14,.25) 55%,rgba(10,9,14,0));pointer-events:none}
-#msg{position:absolute;left:0;right:0;top:calc(max(14px,env(safe-area-inset-top)) + 64px);text-align:center;padding:0 9%;text-shadow:0 2px 20px rgba(8,8,16,.7),0 0 2px rgba(8,8,16,.4)}
-#msg h1{font-weight:300;font-size:clamp(40px,12vw,60px);line-height:1.06;letter-spacing:.005em}
-#msg p{font-size:clamp(15px,4.3vw,18px);line-height:1.6;margin-top:.8em;color:rgba(241,234,218,.92)}
-#dock{position:absolute;left:0;right:0;bottom:0;padding:0 10px calc(14px + env(safe-area-inset-bottom));background:linear-gradient(180deg,rgba(12,10,8,0),rgba(12,10,8,.72) 38%,rgba(12,10,8,.86));pointer-events:auto}
-#hint{text-align:center;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--warm);padding:30px 0 8px;opacity:0;text-shadow:0 1px 8px rgba(0,0,0,.85),0 0 2px rgba(0,0,0,.9)}
+#scrim{display:none;position:absolute;left:0;right:0;top:0;height:42%;background:linear-gradient(180deg,rgba(10,9,14,.78),rgba(10,9,14,.45) 22%,rgba(10,9,14,.25) 55%,rgba(10,9,14,0));pointer-events:none}
+#msg{text-align:center;padding:12px 7% 0;min-height:calc(clamp(30px,9vw,42px)*1.1 + clamp(14px,3.9vw,16px)*3.1 + 22px)}
+#msg h1{font-weight:300;font-size:clamp(30px,9vw,42px);line-height:1.1;letter-spacing:.005em}
+#msg p{font-size:clamp(14px,3.9vw,16px);line-height:1.55;margin-top:.45em;color:rgba(241,234,218,.82)}
+#dock{position:absolute;left:0;right:0;bottom:0;padding:0 10px calc(14px + env(safe-area-inset-bottom));background:#15120d;pointer-events:auto}
+#hint{text-align:center;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--warm);padding:8px 0 2px;font-size:10.5px;opacity:0;text-shadow:0 1px 8px rgba(0,0,0,.85),0 0 2px rgba(0,0,0,.9)}
 #days{display:flex;justify-content:space-between;gap:2px;padding-top:4px}
 #days button{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 0 4px;opacity:.55;transition:opacity .4s}
-#days button .ic{width:min(13vw,56px);aspect-ratio:1;background-image:var(--icons);background-size:500% 100%;background-repeat:no-repeat;transition:transform .4s,filter .4s}
+#days button .ic{width:min(11.5vw,50px);aspect-ratio:1;background-image:var(--icons);background-size:500% 100%;background-repeat:no-repeat;transition:transform .4s,filter .4s}
 #days button span{font-size:10.5px;letter-spacing:.06em;line-height:1.2;text-align:center;white-space:nowrap}
 #days button.on{opacity:1}
 #days button.on .ic{transform:translateY(-3px) scale(1.08);filter:drop-shadow(0 0 12px rgba(240,206,120,.75))}
 #days button.on span{color:var(--warm)}
-#fwdRow{display:flex;justify-content:center;padding-top:10px}
+#fwdRow{display:flex;justify-content:center;padding-top:8px}
 #fwd{display:inline-flex;align-items:center;gap:9px;padding:11px 20px;border-radius:999px;border:1px solid rgba(201,160,74,.55);background:rgba(142,106,21,.32);color:var(--bone);font-size:14.5px;font-weight:400;letter-spacing:.03em;text-decoration:none;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
 #fwd svg{width:17px;height:17px}
 .nojs-hide{display:none}
@@ -81,8 +81,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   <div id="scrim"></div>
   <div class="top"><div class="wm" role="img" aria-label="Layer 1"></div>
    <button id="sound" aria-label="Sound on or off"><svg class="on" viewBox="0 0 24 24"><path d="M4 9h3l5-4v14l-5-4H4z"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"/></svg><svg class="off" viewBox="0 0 24 24"><path d="M4 9h3l5-4v14l-5-4H4z"/><path d="M16 9l5 6M21 9l-5 6"/></svg></button></div>
-  <div id="msg"><h1 id="greet"></h1><p id="wish"></p></div>
   <div id="dock">
+   <div id="msg"><h1 id="greet"></h1><p id="wish"></p></div>
    <div id="hint">Tap a day to change the light</div>
    <div id="days" role="tablist" aria-label="Five days of light"></div>
    <div id="fwdRow"><a id="fwd" href="#" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7a2.8 2.8 0 0 0 1.8-1.3 2.3 2.3 0 0 0 .2-1.3c-.1-.1-.2-.2-.5-.3z"/></svg>Forward on WhatsApp</a></div>
@@ -107,16 +107,16 @@ const G=window.gsap;
 const $=s=>document.querySelector(s);
 const PAGE='https://layer-i.github.io/greetings/diwali-2026/';
 const CDN='https://d2ol7oe51mr4n9.cloudfront.net/user_3KBdapm6RLFCt8hz0uFJiAxm6LA/';
-const A={card:'d92bf645-2cda-47e2-97bc-e5f788e5b82d.webp',seal:'d9de1222-74c5-491e-8599-c320b7f23078.webp',front:'c9b4b98a-95d8-48a5-9293-5bda6a4cd6b5.webp',icons:'c81eb035-64fd-4790-ab85-530886649129.webp',mask:'9af36c7a-1ddf-4166-9f9e-4cb761381fcf.png'};
+const A={card:'d92bf645-2cda-47e2-97bc-e5f788e5b82d.webp',seal:'d9de1222-74c5-491e-8599-c320b7f23078.webp',front:'c9b4b98a-95d8-48a5-9293-5bda6a4cd6b5.webp',icons:'c81eb035-64fd-4790-ab85-530886649129.webp',mask:'d54087f7-57fc-4825-969c-c44e4c600ff5.png'};
 document.documentElement.style.setProperty('--icons',`url(${CDN+A.icons})`);
 
 /* ── the five festivals: one courtyard, five lights */
 const F=[
- {id:'dhanteras',name:'Dhanteras',date:'2026-11-06',img:'d6abfac6-5ada-4cbb-b0e1-2f68f4622205.webp',greet:'Happy Dhanteras',wish:'May this Dhanteras bring lasting prosperity to your home.',fwd:'Happy Dhanteras.',front:0,sparks:.35},
- {id:'kali',name:'Kali Chaudas',date:'2026-11-07',img:'cc43f477-7388-46a6-ba9d-a178f4851213.webp',greet:'Kali Chaudas',wish:'May every lamp tonight keep the dark from your door.',fwd:'Wishing you a blessed Kali Chaudas.',front:0,sparks:.25},
- {id:'diwali',name:'Diwali',date:'2026-11-08',img:'73671e00-c9fa-4439-8178-53550da93bda.webp',greet:'Happy Diwali',wish:'May every room of your home be filled with light.',fwd:'Happy Diwali.',front:1,sparks:1},
- {id:'bestu',name:'New Year',date:'2026-11-10',img:'f4c30e9f-f7d8-4f54-a4b8-3de64517abea.webp',greet:'Saal Mubarak',wish:'May the new year open every door for you.',fwd:'Saal Mubarak.',front:.0,sparks:0},
- {id:'bhaidooj',name:'Bhai Dooj',date:'2026-11-11',img:'cc0136d6-4707-4ea7-ba6d-b94a29ff40bc.webp',greet:'Happy Bhai Dooj',wish:'To the bonds that light our lives.',fwd:'Happy Bhai Dooj.',front:0,sparks:0},
+ {id:'dhanteras',name:'Dhanteras',date:'2026-11-06',img:'2eb009de-43b5-4284-9f11-7f963b00ba5f.webp',greet:'Happy Dhanteras',wish:'May this Dhanteras bring lasting prosperity to your home.',fwd:'Happy Dhanteras.',front:0,sparks:0,fw:.45},
+ {id:'kali',name:'Kali Chaudas',date:'2026-11-07',img:'e2c9aa1a-34cb-4fb3-b1c0-44e436fbb601.webp',greet:'Kali Chaudas',wish:'May every lamp tonight keep the dark from your door.',fwd:'Wishing you a blessed Kali Chaudas.',front:0,sparks:0,fw:.6},
+ {id:'diwali',name:'Diwali',date:'2026-11-08',img:'df5c7ee4-229e-4c55-87ff-1ec50dc48600.webp',greet:'Happy Diwali',wish:'May every room of your home be filled with light.',fwd:'Happy Diwali.',front:0,sparks:0,fw:1},
+ {id:'bestu',name:'New Year',date:'2026-11-10',img:'4b810d97-5d55-4f6e-b463-c145733d79c3.webp',greet:'Saal Mubarak',wish:'May the new year open every door for you.',fwd:'Saal Mubarak.',front:0,sparks:0,fw:0},
+ {id:'bhaidooj',name:'Bhai Dooj',date:'2026-11-11',img:'a74961da-b2bc-4334-a92c-32eca0d5d154.webp',greet:'Happy Bhai Dooj',wish:'To the bonds that light our lives.',fwd:'Happy Bhai Dooj.',front:0,sparks:0,fw:0},
 ];
 const todayIN=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Kolkata'}).format(new Date());
 let cur=F.findIndex(f=>f.date===todayIN); if(todayIN==='2026-11-09'||cur<0)cur=2;
@@ -126,7 +126,7 @@ const TODAY=cur;
 let ac=null, muted=false;
 const sfx=type=>{ if(muted)return; try{
   ac=ac||new (window.AudioContext||window.webkitAudioContext)(); if(ac.state==='suspended')ac.resume();
-  const t=ac.currentTime, len={click:.25,swing:1.8,sweep:1.6,tick:.12}[type];
+  const t=ac.currentTime, len={click:.25,swing:1.8,sweep:1.6,tick:.12,pop:.9}[type];
   const buf=ac.createBuffer(1,Math.ceil(ac.sampleRate*len),ac.sampleRate), d=buf.getChannelData(0);
   for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;
   const src=ac.createBufferSource(); src.buffer=buf; const f=ac.createBiquadFilter(), g=ac.createGain(); f.type='bandpass';
@@ -134,6 +134,7 @@ const sfx=type=>{ if(muted)return; try{
   if(type==='click'){f.frequency.value=1900;f.Q.value=1.1;env(.28,.003,.16);}
   if(type==='swing'){f.frequency.setValueAtTime(240,t);f.frequency.exponentialRampToValueAtTime(1500,t+1.5);f.Q.value=.5;env(.06,.7,1.75);}
   if(type==='sweep'){f.frequency.setValueAtTime(900,t);f.frequency.exponentialRampToValueAtTime(3200,t+1.3);f.Q.value=.6;env(.035,.6,1.55);}
+  if(type==='pop'){f.type='lowpass';f.frequency.setValueAtTime(420,t);f.frequency.exponentialRampToValueAtTime(140,t+.5);f.Q.value=.7;env(.07,.006,.75);}
   if(type==='tick'){f.frequency.value=2600;f.Q.value=1.4;env(.05,.003,.09);}
   src.connect(f).connect(g).connect(ac.destination); src.start(t); src.stop(t+len);
 }catch(e){} };
@@ -176,7 +177,7 @@ async function threeVersion(){
   // load the cover first, the courtyard alongside
   const texLoader=img=>{ const t=new THREE.Texture(img); t.colorSpace=THREE.SRGBColorSpace; t.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy()); t.needsUpdate=true; return t; };
   const [cardImg,sealImg]=await Promise.all([loadImg(CDN+A.card),loadImg(CDN+A.seal),fontsReady]);
-  const courtPromise=Promise.all([loadImg(CDN+F[cur].img),loadImg(CDN+A.mask),loadImg(CDN+A.front)]);
+  const courtPromise=Promise.all([loadImg(CDN+F[cur].img),loadImg(CDN+A.mask)]);
 
   // the card face: the painted card with its words printed across the fold, as on a real gatefold
   const cc=document.createElement('canvas'); cc.width=1080; cc.height=1910; const x=cc.getContext('2d');
@@ -233,9 +234,17 @@ async function threeVersion(){
   const ambTex={}; ambTex[cur]=texLoader(blank);
   const vert=`varying vec2 vUv; void main(){ vUv=uv; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.); }`;
   const frag=(useMask)=>`
-    uniform sampler2D a; uniform sampler2D b; uniform sampler2D m; uniform float p; uniform float glow; uniform float dim; varying vec2 vUv;
+    uniform sampler2D a; uniform sampler2D b; uniform sampler2D m; uniform float p; uniform float glow; uniform float dim; uniform float ext; varying vec2 vUv;
+    // above the photograph the sky continues: its own top colour, deepening upwards
+    vec3 S(sampler2D t, vec2 uv){
+      if(uv.y<=.965) return texture2D(t,uv).rgb;
+      vec3 top=vec3(0.); for(int i=0;i<10;i++) top+=texture2D(t,vec2((float(i)+.5)/10.,.97)).rgb; top/=10.;
+      vec3 c=uv.y<1.? mix(texture2D(t,vec2(uv.x,min(uv.y,.999))).rgb, top, smoothstep(.965,.999,uv.y)) : top;
+      return c*(1.-.5*clamp((uv.y-1.)/max(ext,.001),0.,1.));
+    }
     void main(){
-      vec4 ca=texture2D(a,vUv), cb=texture2D(b,vUv);
+      vec2 uv=vec2(vUv.x, vUv.y*(1.+ext));
+      vec4 ca=vec4(S(a,uv),1.), cb=vec4(S(b,uv),1.);
       float s=vUv.x*.75+(1.-vUv.y)*.25;           // the new light washes in from the left
       float e=smoothstep(p*1.4-.2, p*1.4-.02, s);
       vec3 col=mix(cb.rgb, ca.rgb, e);
@@ -249,15 +258,15 @@ async function threeVersion(){
       gl_FragColor=vec4(col,al);
       #include <colorspace_fragment>
     }`;
-  const mkLayer=(useMask)=>new THREE.ShaderMaterial({uniforms:{a:{value:ambTex[cur]},b:{value:ambTex[cur]},m:{value:maskTex},p:{value:1},glow:{value:0},dim:{value:0}},vertexShader:vert,fragmentShader:frag(useMask),transparent:useMask,depthWrite:!useMask});
+  const mkLayer=(useMask)=>new THREE.ShaderMaterial({uniforms:{a:{value:ambTex[cur]},b:{value:ambTex[cur]},m:{value:maskTex},p:{value:1},glow:{value:0},dim:{value:0},ext:{value:0}},vertexShader:vert,fragmentShader:frag(useMask),transparent:useMask,depthWrite:!useMask});
   const skyMat=mkLayer(false), bldMat=mkLayer(true);
+  const EXT=0; skyMat.uniforms.ext.value=EXT; // the courtyard sits lower, the sky carries on above it
   const sky=new THREE.Mesh(new THREE.PlaneGeometry(1,1),skyMat), bld=new THREE.Mesh(new THREE.PlaneGeometry(1,1),bldMat);
   const frontTex=texLoader(blank);
-  const courtDone=courtPromise.then(([ambImg,maskImg,frontImg])=>{
+  const courtDone=courtPromise.then(([ambImg,maskImg])=>{
     // fresh textures: three.js allocates fixed-size storage, so the placeholders cannot simply be resized
     const c0=cur; ambTex[c0]=texLoader(ambImg); const mT=new THREE.Texture(maskImg); mT.needsUpdate=true;
     for(const m of [skyMat,bldMat]){ m.uniforms.a.value=m.uniforms.b.value=ambTex[c0]; m.uniforms.m.value=mT; }
-    front.material.map=texLoader(frontImg); front.material.needsUpdate=true;
   });
   const front=new THREE.Mesh(new THREE.PlaneGeometry(1,1),new THREE.MeshBasicMaterial({map:frontTex,transparent:true,depthWrite:false,opacity:F[cur].front}));
   const court=new THREE.Group(); court.add(sky,bld,front); scene.add(court);
@@ -271,6 +280,39 @@ async function threeVersion(){
   const dot=document.createElement('canvas'); dot.width=dot.height=64; { const d=dot.getContext('2d'); const gr=d.createRadialGradient(32,32,0,32,32,32); gr.addColorStop(0,'rgba(255,228,170,1)'); gr.addColorStop(.35,'rgba(255,200,110,.6)'); gr.addColorStop(1,'rgba(255,190,90,0)'); d.fillStyle=gr; d.fillRect(0,0,64,64); }
   const sparkMat=new THREE.PointsMaterial({size:.05,map:new THREE.CanvasTexture(dot),transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,opacity:0});
   const sparks=new THREE.Points(sg,sparkMat); scene.add(sparks);
+
+  // ── fireworks in the sky, behind the roofline
+  const FW={z:-2.6,w:1,h:1,rate:F[cur].fw,next:0,on:false};
+  const PB=96, NB=7, NP=PB*NB;
+  const fp=new Float32Array(NP*3), fc=new Float32Array(NP*3), fv=new Float32Array(NP*3), fl=new Float32Array(NP), fbase=new Float32Array(NP*3);
+  for(let i=0;i<NP;i++){ fp[i*3+2]=FW.z; fp[i*3+1]=99; }
+  const fg=new THREE.BufferGeometry(); fg.setAttribute('position',new THREE.BufferAttribute(fp,3)); fg.setAttribute('color',new THREE.BufferAttribute(fc,3));
+  const fwMat=new THREE.PointsMaterial({size:.04,map:sparkMat.map,vertexColors:true,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending});
+  const fwPts=new THREE.Points(fg,fwMat); fwPts.frustumCulled=false; scene.add(fwPts);
+  const PAL=[[1,.78,.38],[1,.55,.2],[1,.92,.7],[.98,.42,.32],[1,.85,.5]];
+  let slot=0;
+  function burst(){
+    const b=slot++%NB, x=(Math.random()-.5)*FW.w*.62, y=Math.min(FW.ceil, FW.top-FW.h*(.04+Math.random()*.1));
+    const c=PAL[(Math.random()*PAL.length)|0], c2=PAL[(Math.random()*PAL.length)|0], sp=.55+Math.random()*.35, ring=Math.random()<.35;
+    for(let k=0;k<PB;k++){ const i=b*PB+k;
+      const th=Math.random()*Math.PI*2, ph=Math.acos(2*Math.random()-1), v=sp*(ring?1:(.55+Math.random()*.45));
+      fp[i*3]=x; fp[i*3+1]=y; fp[i*3+2]=FW.z;
+      fv[i*3]=Math.sin(ph)*Math.cos(th)*v; fv[i*3+1]=Math.sin(ph)*Math.sin(th)*v; fv[i*3+2]=0;
+      const cc=k%3?c:c2; fbase[i*3]=cc[0]; fbase[i*3+1]=cc[1]; fbase[i*3+2]=cc[2]; fl[i]=1+Math.random()*.25; }
+    if(ac) sfx('pop');
+  }
+  function stepFW(dt,t){
+    if(FW.on&&FW.rate>0&&t>FW.next){ burst(); FW.next=t+(1.6+Math.random()*1.4)/FW.rate; }
+    for(let i=0;i<NP;i++){ if(fl[i]<=0) continue;
+      fl[i]-=dt*.62; const k=Math.max(0,fl[i]);
+      fv[i*3]*=.965; fv[i*3+1]=fv[i*3+1]*.965-.18*dt;
+      fp[i*3]+=fv[i*3]*dt*.5; fp[i*3+1]+=fv[i*3+1]*dt*.5;
+      const out=Math.abs(fp[i*3])>FW.w*.48||fp[i*3+1]>FW.top-FW.h*.006; // stay inside the picture's sky
+      const a=out?0:k*k*(.75+.25*Math.sin(t*40+i)); fc[i*3]=fbase[i*3]*a; fc[i*3+1]=fbase[i*3+1]*a; fc[i*3+2]=fbase[i*3+2]*a;
+      if(fl[i]<=0) fp[i*3+1]=99; }
+    fg.attributes.position.needsUpdate=true; fg.attributes.color.needsUpdate=true;
+  }
+  sky.renderOrder=0; fwPts.renderOrder=1; bld.renderOrder=2; front.renderOrder=3; sparks.renderOrder=4;
 
   // ── light
   const amb=new THREE.AmbientLight(0xffffff,1.6); scene.add(amb);
@@ -290,9 +332,16 @@ async function threeVersion(){
     const vh=visH(Z.cam0-Z.card), vw=vh*camera.aspect;
     CH=Math.min(vh*.8, vw*.86/ar); CW=CH*ar; card.position.y=vh*.025;
     // each courtyard layer covers the screen at the end, with room for tilt
-    const fit=(z,extra)=>{ const h=visH(Z.cam1-z), w=h*camera.aspect; const hh=Math.max(h,w/ar)*extra; return [hh*ar,hh]; };
-    let [w1,h1]=fit(Z.bld,1.08); bld.scale.set(w1,h1,1);
-    let [w2,h2]=fit(Z.sky,1.12); sky.scale.set(w2,h2,1);
+    const arC=1080/1935;
+    const fit=(z,extra)=>{ const h=visH(Z.cam1-z), w=h*camera.aspect; const hh=Math.max(h,w/arC)*extra; return [hh*arC,hh]; };
+    // the courtyard sits full width and ends where the dock begins, so nothing covers it; the sky carries on above
+    const sr=stage.getBoundingClientRect(), tp=$('.top').getBoundingClientRect(), dk=$('#dock').getBoundingClientRect();
+    const y0=tp.bottom-sr.top+10, y1=dk.top-sr.top-6;            // the band the picture may use, in px
+    const hp=Math.max(120,Math.min((y1-y0)*1.08, W*.94/arC)), cyp=(y0+y1)/2-(y1-y0)*.0; // whole picture, as large as fits
+    const place=z=>{ const Hv=visH(Z.cam1-z), k=Hv/H; const h=hp*k, w=h*arC; return {w,h,cy:Hv*(.5-cyp/H)}; };
+    const pb=place(Z.bld); bld.scale.set(pb.w,pb.h,1); bld.position.y=pb.cy;
+    const ps=place(Z.sky); sky.scale.set(ps.w,ps.h,1); sky.position.y=ps.cy;
+    const pf=place(FW.z); FW.w=pf.w; FW.h=pf.h; FW.top=pf.cy+pf.h/2; FW.ceil=FW.top-pf.h*.03;
     let [w3,h3]=fit(Z.front,1.06); front.scale.set(w3,h3,1); front.position.y=0;
     const sw=Math.min(CW*.36,.62); seal.scale.set(sw,sw,1); sealShadow.scale.set(sw*.98,sw*.98,1);
   }
@@ -330,13 +379,14 @@ async function threeVersion(){
     const idle=1-Math.min(1,L.angle*3);
     card.rotation.y=Math.sin(t*.55)*.07*idle; card.rotation.x=Math.cos(t*.43)*.035*idle;
     skyMat.uniforms.dim.value=bldMat.uniforms.dim.value=S.dimUp;
-    camera.position.set(cx*.12*k, -cy*.08*k+breathe*.3, z);
+    camera.position.set(cx*.035*k, -cy*.025*k+breathe*.3, z);
     camera.lookAt(cx*.03*k, 0, Z.bld);
     // sparks
     const pa=sg.attributes.position.array;
     for(let i=0;i<NS;i++){ pa[i*3+1]+=sv[i]; pa[i*3]+=Math.sin(t*.7+i)*.0006; if(pa[i*3+1]>1.3){ pa[i*3+1]=-1.3; pa[i*3]=(Math.random()-.5)*2.2; } }
     sg.attributes.position.needsUpdate=true;
     spill.intensity=S.glow*3.2;
+    stepFW(Math.min(.05,(now-(window.__lt||now))/1000),t); window.__lt=now;
     renderer.render(scene,camera);
     requestAnimationFrame(render);
   }
@@ -371,6 +421,7 @@ async function threeVersion(){
       .to(R,{bend:-.42,duration:.85,ease:'sine.out',yoyo:true,repeat:1},'R')
       .to(S,{glow:1,duration:.8,ease:'power1.out'},'R+=.2')
       .to(sparkMat,{opacity:.9*F[cur].sparks,duration:1.6},'R+=.4')
+      .add(()=>{ FW.on=true; if(FW.rate>0){ burst(); setTimeout(burst,450); setTimeout(burst,1100); } FW.next=0; },'R+=1.2')
       .to(S,{cam:1,duration:2.6,ease:'power2.inOut'},'R+=.35')
       .to(S,{glow:0,duration:1.2,ease:'power1.in'},'R+=1.6')
       .add(()=>{ card.visible=false; seal.visible=false; sealShadow.visible=false; },'R+=2.3')
@@ -380,6 +431,7 @@ async function threeVersion(){
   $('#hit').addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();open();} });
 
   function showUI(){
+    layout();
     $('#ui').style.visibility='visible';
     if(G){ G.fromTo('#msg',{opacity:0,y:14},{opacity:1,y:0,duration:1.1,ease:'power2.out'});
       G.fromTo('#dock',{opacity:0,y:24},{opacity:1,y:0,duration:1,delay:.35,ease:'power3.out'});
@@ -405,6 +457,7 @@ async function threeVersion(){
     G.to(st,{p:1,duration:1.8,ease:'power2.inOut',onUpdate:()=>{ for(const m of [skyMat,bldMat]){ m.uniforms.p.value=st.p; m.uniforms.glow.value=Math.sin(st.p*Math.PI)*.9; } },onComplete:done});
     G.to(front.material,{opacity:F[i].front,duration:1.4,ease:'power2.inOut'});
     G.to(sparkMat,{opacity:.9*F[i].sparks,duration:1.4});
+    FW.rate=F[i].fw; if(FW.rate>0) setTimeout(burst,700);
   });
   // the shader's p means "how far the new light has come": a=old, b=new, e picks old where s is beyond the edge
 }
