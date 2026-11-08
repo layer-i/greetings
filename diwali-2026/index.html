@@ -234,9 +234,17 @@ async function threeVersion(){
   const ambTex={}; ambTex[cur]=texLoader(blank);
   const vert=`varying vec2 vUv; void main(){ vUv=uv; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.); }`;
   const frag=(useMask)=>`
-    uniform sampler2D a; uniform sampler2D b; uniform sampler2D m; uniform float p; uniform float glow; uniform float dim; varying vec2 vUv;
+    uniform sampler2D a; uniform sampler2D b; uniform sampler2D m; uniform float p; uniform float glow; uniform float dim; uniform float ext; varying vec2 vUv;
+    // above the photograph the sky continues: its own top colour, deepening upwards
+    vec3 S(sampler2D t, vec2 uv){
+      if(uv.y<=.965) return texture2D(t,uv).rgb;
+      vec3 top=vec3(0.); for(int i=0;i<10;i++) top+=texture2D(t,vec2((float(i)+.5)/10.,.97)).rgb; top/=10.;
+      vec3 c=uv.y<1.? mix(texture2D(t,vec2(uv.x,min(uv.y,.999))).rgb, top, smoothstep(.965,.999,uv.y)) : top;
+      return c*(1.-.5*clamp((uv.y-1.)/max(ext,.001),0.,1.));
+    }
     void main(){
-      vec4 ca=texture2D(a,vUv), cb=texture2D(b,vUv);
+      vec2 uv=vec2(vUv.x, vUv.y*(1.+ext));
+      vec4 ca=vec4(S(a,uv),1.), cb=vec4(S(b,uv),1.);
       float s=vUv.x*.75+(1.-vUv.y)*.25;           // the new light washes in from the left
       float e=smoothstep(p*1.4-.2, p*1.4-.02, s);
       vec3 col=mix(cb.rgb, ca.rgb, e);
@@ -250,8 +258,9 @@ async function threeVersion(){
       gl_FragColor=vec4(col,al);
       #include <colorspace_fragment>
     }`;
-  const mkLayer=(useMask)=>new THREE.ShaderMaterial({uniforms:{a:{value:ambTex[cur]},b:{value:ambTex[cur]},m:{value:maskTex},p:{value:1},glow:{value:0},dim:{value:0}},vertexShader:vert,fragmentShader:frag(useMask),transparent:useMask,depthWrite:!useMask});
+  const mkLayer=(useMask)=>new THREE.ShaderMaterial({uniforms:{a:{value:ambTex[cur]},b:{value:ambTex[cur]},m:{value:maskTex},p:{value:1},glow:{value:0},dim:{value:0},ext:{value:0}},vertexShader:vert,fragmentShader:frag(useMask),transparent:useMask,depthWrite:!useMask});
   const skyMat=mkLayer(false), bldMat=mkLayer(true);
+  const EXT=.32, DROP=.12; skyMat.uniforms.ext.value=EXT; // the courtyard sits lower, the sky carries on above it
   const sky=new THREE.Mesh(new THREE.PlaneGeometry(1,1),skyMat), bld=new THREE.Mesh(new THREE.PlaneGeometry(1,1),bldMat);
   const frontTex=texLoader(blank);
   const courtDone=courtPromise.then(([ambImg,maskImg])=>{
@@ -283,7 +292,7 @@ async function threeVersion(){
   const PAL=[[1,.78,.38],[1,.55,.2],[1,.92,.7],[.98,.42,.32],[1,.85,.5]];
   let slot=0;
   function burst(){
-    const b=slot++%NB, x=(Math.random()-.5)*FW.w*.7, y=FW.h*.5-FW.h*(.06+Math.random()*.1);
+    const b=slot++%NB, x=(Math.random()-.5)*FW.w*.7, y=FW.h*.5-DROP*FW.h-FW.h*(-.07+Math.random()*.17);
     const c=PAL[(Math.random()*PAL.length)|0], c2=PAL[(Math.random()*PAL.length)|0], sp=.55+Math.random()*.35, ring=Math.random()<.35;
     for(let k=0;k<PB;k++){ const i=b*PB+k;
       const th=Math.random()*Math.PI*2, ph=Math.acos(2*Math.random()-1), v=sp*(ring?1:(.55+Math.random()*.45));
@@ -324,8 +333,8 @@ async function threeVersion(){
     // each courtyard layer covers the screen at the end, with room for tilt
     const arC=1080/1935;
     const fit=(z,extra)=>{ const h=visH(Z.cam1-z), w=h*camera.aspect; const hh=Math.max(h,w/arC)*extra; return [hh*arC,hh]; };
-    let [w1,h1]=fit(Z.bld,1.08); bld.scale.set(w1,h1,1);
-    let [w2,h2]=fit(Z.sky,1.12); sky.scale.set(w2,h2,1);
+    let [w1,h1]=fit(Z.bld,1.08); bld.scale.set(w1,h1,1); bld.position.y=-DROP*h1;
+    let [w2,h2]=fit(Z.sky,1.12); sky.scale.set(w2,h2*(1+EXT),1); sky.position.y=h2*EXT/2-DROP*h2;
     let [w3,h3]=fit(Z.front,1.06); front.scale.set(w3,h3,1); front.position.y=0;
     const [w4,h4]=fit(FW.z,1.1); FW.w=w4; FW.h=h4;
     const sw=Math.min(CW*.36,.62); seal.scale.set(sw,sw,1); sealShadow.scale.set(sw*.98,sw*.98,1);
