@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 <link rel="preload" href="assets/bai-jamjuree-latin-300-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js" crossorigin>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js"}}</script>
 <style>
 @font-face{font-family:'Bai Jamjuree';font-weight:300;font-display:block;src:url(assets/bai-jamjuree-latin-300-normal.woff2) format('woff2')}
@@ -51,12 +51,12 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 #sound{width:44px;height:44px;display:grid;place-items:center;pointer-events:auto}
 #sound svg{width:20px;height:20px;stroke:var(--bone);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;opacity:.85}
 #sound .off{display:none}#sound.muted .on{display:none}#sound.muted .off{display:block}
-#scrim{position:absolute;left:0;right:0;top:0;height:42%;background:linear-gradient(180deg,rgba(10,9,14,.55),rgba(10,9,14,.28) 55%,rgba(10,9,14,0));pointer-events:none}
+#scrim{position:absolute;left:0;right:0;top:0;height:42%;background:linear-gradient(180deg,rgba(10,9,14,.78),rgba(10,9,14,.45) 22%,rgba(10,9,14,.25) 55%,rgba(10,9,14,0));pointer-events:none}
 #msg{position:absolute;left:0;right:0;top:calc(max(14px,env(safe-area-inset-top)) + 64px);text-align:center;padding:0 9%;text-shadow:0 2px 20px rgba(8,8,16,.7),0 0 2px rgba(8,8,16,.4)}
 #msg h1{font-weight:300;font-size:clamp(40px,12vw,60px);line-height:1.06;letter-spacing:.005em}
 #msg p{font-size:clamp(15px,4.3vw,18px);line-height:1.6;margin-top:.8em;color:rgba(241,234,218,.92)}
 #dock{position:absolute;left:0;right:0;bottom:0;padding:0 10px calc(14px + env(safe-area-inset-bottom));background:linear-gradient(180deg,rgba(12,10,8,0),rgba(12,10,8,.72) 38%,rgba(12,10,8,.86));pointer-events:auto}
-#hint{text-align:center;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--warm);padding:30px 0 8px;opacity:0}
+#hint{text-align:center;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--warm);padding:30px 0 8px;opacity:0;text-shadow:0 1px 8px rgba(0,0,0,.85),0 0 2px rgba(0,0,0,.9)}
 #days{display:flex;justify-content:space-between;gap:2px;padding-top:4px}
 #days button{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 0 4px;opacity:.55;transition:opacity .4s}
 #days button .ic{width:min(13vw,56px);aspect-ratio:1;background-image:var(--icons);background-size:500% 100%;background-repeat:no-repeat;transition:transform .4s,filter .4s}
@@ -90,6 +90,17 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
  </div>
 </div>
 
+<script>
+setTimeout(function(){ if(window.__ready) return; window.__fallback=true;
+  var st=document.getElementById('stage'), u=location.origin+location.pathname;
+  st.innerHTML='<div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;background:#15120d;color:#F1EADA;text-align:center;padding:0 32px">'+
+   '<div style="font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:#C9A04A">A Diwali wish</div>'+
+   '<div style="font-size:44px;font-weight:300">Happy Diwali</div>'+
+   '<div style="font-size:16px;opacity:.8;max-width:300px">May every room of your home be filled with&nbsp;light.</div>'+
+   '<a style="margin-top:22px;color:#F1EADA;border:1px solid #8E6A15;border-radius:30px;padding:12px 26px;text-decoration:none;font-size:15px" href="https://wa.me/?text='+encodeURIComponent('Happy Diwali. A little light for you: '+u)+'">Forward on WhatsApp</a>'+
+   '<div style="margin-top:26px;font-size:13px;letter-spacing:.1em;color:#C9A04A">Layer 1</div></div>';
+},10000);
+</script>
 <script type="module">
 import * as THREE from 'three';
 const G=window.gsap;
@@ -101,14 +112,15 @@ document.documentElement.style.setProperty('--icons',`url(${CDN+A.icons})`);
 
 /* ── the five festivals: one courtyard, five lights */
 const F=[
- {id:'dhanteras',name:'Dhanteras',date:'2026-11-06',img:'d6abfac6-5ada-4cbb-b0e1-2f68f4622205.webp',greet:'Happy Dhanteras',wish:'May new beginnings bring lasting prosperity to your home.',fwd:'Happy Dhanteras.',front:0,sparks:.35},
- {id:'kali',name:'Kali Chaudas',date:'2026-11-07',img:'cc43f477-7388-46a6-ba9d-a178f4851213.webp',greet:'Kali Chaudas',wish:'May every lamp tonight keep the dark at your door.',fwd:'Wishing you a blessed Kali Chaudas.',front:0,sparks:.25},
+ {id:'dhanteras',name:'Dhanteras',date:'2026-11-06',img:'d6abfac6-5ada-4cbb-b0e1-2f68f4622205.webp',greet:'Happy Dhanteras',wish:'May this Dhanteras bring lasting prosperity to your home.',fwd:'Happy Dhanteras.',front:0,sparks:.35},
+ {id:'kali',name:'Kali Chaudas',date:'2026-11-07',img:'cc43f477-7388-46a6-ba9d-a178f4851213.webp',greet:'Kali Chaudas',wish:'May every lamp tonight keep the dark from your door.',fwd:'Wishing you a blessed Kali Chaudas.',front:0,sparks:.25},
  {id:'diwali',name:'Diwali',date:'2026-11-08',img:'73671e00-c9fa-4439-8178-53550da93bda.webp',greet:'Happy Diwali',wish:'May every room of your home be filled with light.',fwd:'Happy Diwali.',front:1,sparks:1},
  {id:'bestu',name:'New Year',date:'2026-11-10',img:'f4c30e9f-f7d8-4f54-a4b8-3de64517abea.webp',greet:'Saal Mubarak',wish:'May the new year open every door for you.',fwd:'Saal Mubarak.',front:.0,sparks:0},
  {id:'bhaidooj',name:'Bhai Dooj',date:'2026-11-11',img:'cc0136d6-4707-4ea7-ba6d-b94a29ff40bc.webp',greet:'Happy Bhai Dooj',wish:'To the bonds that light our lives.',fwd:'Happy Bhai Dooj.',front:0,sparks:0},
 ];
 const todayIN=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Kolkata'}).format(new Date());
 let cur=F.findIndex(f=>f.date===todayIN); if(todayIN==='2026-11-09'||cur<0)cur=2;
+const TODAY=cur;
 
 /* ── sound: soft, made in the browser, led by the motion */
 let ac=null, muted=false;
@@ -130,12 +142,13 @@ $('#sound').addEventListener('click',e=>{e.stopPropagation();muted=!muted;$('#so
 /* ── the greeting overlay */
 const days=$('#days');
 days.innerHTML=F.map((f,i)=>`<button role="tab" data-i="${i}" aria-label="${f.name}"><div class="ic" style="background-position:${i*25}% 0"></div><span>${f.name}</span></button>`).join('');
+const nb=t=>t.replace(/ (\S+)$/,'\u00a0$1');
 function setText(i,animate){
   const f=F[i]; [...days.children].forEach((b,j)=>{b.classList.toggle('on',j===i);b.setAttribute('aria-selected',j===i);});
-  if(!animate||!G){ $('#greet').textContent=f.greet; $('#wish').textContent=f.wish; return; }
-  G.to('#msg',{opacity:0,y:-8,duration:.35,ease:'power2.in',onComplete:()=>{ $('#greet').textContent=f.greet; $('#wish').textContent=f.wish; G.fromTo('#msg',{opacity:0,y:10},{opacity:1,y:0,duration:.8,ease:'power2.out'}); }});
+  if(!animate||!G){ $('#greet').textContent=nb(f.greet); $('#wish').textContent=nb(f.wish); return; }
+  G.to('#msg',{opacity:0,y:-8,duration:.35,ease:'power2.in',onComplete:()=>{ $('#greet').textContent=nb(f.greet); $('#wish').textContent=nb(f.wish); G.fromTo('#msg',{opacity:0,y:10},{opacity:1,y:0,duration:.8,ease:'power2.out'}); }});
 }
-$('#fwd').addEventListener('click',e=>{ e.preventDefault(); location.href='https://wa.me/?text='+encodeURIComponent(F[cur].fwd+' A little light for you: '+PAGE); });
+$('#fwd').addEventListener('click',e=>{ e.preventDefault(); location.href='https://wa.me/?text='+encodeURIComponent(F[TODAY].fwd+' A little light for you: '+PAGE); });
 
 /* ── loading helpers */
 const loadImg=src=>new Promise((res,rej)=>{ const i=new Image(); i.crossOrigin='anonymous'; i.onload=()=>res(i); i.onerror=()=>{ const j=new Image(); j.crossOrigin='anonymous'; j.onload=()=>res(j); j.onerror=rej; j.src=src+'?r=1'; }; i.src=src; });
@@ -168,7 +181,7 @@ async function threeVersion(){
   // the card face: the painted card with its words printed across the fold, as on a real gatefold
   const cc=document.createElement('canvas'); cc.width=1080; cc.height=1910; const x=cc.getContext('2d');
   x.drawImage(cardImg,0,0,1080,1910);
-  x.textAlign='center'; x.fillStyle='#8E6A15'; x.font="400 34px 'Bai Jamjuree'";
+  x.textAlign='center'; x.fillStyle='#8E6A15'; x.font="400 42px 'Bai Jamjuree'";
   if('letterSpacing' in x) x.letterSpacing='8px';
   x.fillText('A DIWALI WISH',540,400);
   if('letterSpacing' in x) x.letterSpacing='0px';
@@ -215,9 +228,9 @@ async function threeVersion(){
   }
 
   // ── the courtyard: sky, building and garlands at three depths
-  const [ambImg,maskImg,frontImg]=await courtPromise;
-  const maskTex=new THREE.Texture(maskImg); maskTex.needsUpdate=true;
-  const ambTex={}; ambTex[cur]=texLoader(ambImg);
+  const blank=document.createElement('canvas'); blank.width=blank.height=2;
+  const maskTex=new THREE.Texture(blank); maskTex.needsUpdate=true;
+  const ambTex={}; ambTex[cur]=texLoader(blank);
   const vert=`varying vec2 vUv; void main(){ vUv=uv; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.); }`;
   const frag=(useMask)=>`
     uniform sampler2D a; uniform sampler2D b; uniform sampler2D m; uniform float p; uniform float glow; uniform float dim; varying vec2 vUv;
@@ -239,7 +252,13 @@ async function threeVersion(){
   const mkLayer=(useMask)=>new THREE.ShaderMaterial({uniforms:{a:{value:ambTex[cur]},b:{value:ambTex[cur]},m:{value:maskTex},p:{value:1},glow:{value:0},dim:{value:0}},vertexShader:vert,fragmentShader:frag(useMask),transparent:useMask,depthWrite:!useMask});
   const skyMat=mkLayer(false), bldMat=mkLayer(true);
   const sky=new THREE.Mesh(new THREE.PlaneGeometry(1,1),skyMat), bld=new THREE.Mesh(new THREE.PlaneGeometry(1,1),bldMat);
-  const frontTex=texLoader(frontImg);
+  const frontTex=texLoader(blank);
+  const courtDone=courtPromise.then(([ambImg,maskImg,frontImg])=>{
+    // fresh textures: three.js allocates fixed-size storage, so the placeholders cannot simply be resized
+    const c0=cur; ambTex[c0]=texLoader(ambImg); const mT=new THREE.Texture(maskImg); mT.needsUpdate=true;
+    for(const m of [skyMat,bldMat]){ m.uniforms.a.value=m.uniforms.b.value=ambTex[c0]; m.uniforms.m.value=mT; }
+    front.material.map=texLoader(frontImg); front.material.needsUpdate=true;
+  });
   const front=new THREE.Mesh(new THREE.PlaneGeometry(1,1),new THREE.MeshBasicMaterial({map:frontTex,transparent:true,depthWrite:false,opacity:F[cur].front}));
   const court=new THREE.Group(); court.add(sky,bld,front); scene.add(court);
   const Z={card:0,cam0:3,cam1:1.15,bld:-2.2,sky:-3.0,front:-1.45};
@@ -324,6 +343,7 @@ async function threeVersion(){
   requestAnimationFrame(render);
 
   // the cover is ready: reveal it
+  if(window.__fallback) return; window.__ready=true;
   $('#touch').style.color='var(--gold)'; $('#touch').style.bottom='calc(4.5% + env(safe-area-inset-bottom))';
   $('#loader').style.opacity=0; setTimeout(()=>$('#loader').remove(),900);
   setText(cur,false);
@@ -331,8 +351,9 @@ async function threeVersion(){
   else $('#touch').style.opacity=1;
   $('#hit').style.display='block';
 
-  function open(){
+  async function open(){
     if(opened)return; opened=true; $('#hit').style.display='none';
+    await courtDone.catch(()=>{});
     try{ if(typeof DeviceOrientationEvent!=='undefined'&&DeviceOrientationEvent.requestPermission) DeviceOrientationEvent.requestPermission().catch(()=>{}); }catch(e){}
     if(!G){ L.angle=2.9; R.angle=2.9; S.cam=1; S.dimUp=1; card.visible=seal.visible=false; showUI(); return; }
     G.killTweensOf('#touch'); G.to('#touch',{opacity:0,duration:.3});
@@ -392,7 +413,7 @@ async function threeVersion(){
 function plainVersion(){
   const st=$('#stage'); canvas.style.display='none';
   const bg=document.createElement('div'); bg.style.cssText='position:absolute;inset:0;background:#141a2e center/cover no-repeat;transition:opacity 1.2s';
-  st.insertBefore(bg,st.firstChild);
+  st.insertBefore(bg,st.firstChild); if(window.__fallback) return; window.__ready=true;
   const cover=document.createElement('div'); cover.style.cssText=`position:absolute;inset:0;z-index:4;background:#efe3c9 url(${CDN+A.card}) center/cover no-repeat;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .9s`;
   cover.innerHTML=`<div style="color:#8E6A15;font-weight:400;font-size:13px;letter-spacing:.26em;margin-top:-40%">A DIWALI WISH</div><div style="color:#1B1A16;font-size:36px;text-align:center;line-height:1.15;margin-top:12px">for you<br>and your family</div><div style="width:150px;height:150px;margin-top:9vh;background:url(${CDN+A.seal}) center/contain no-repeat"></div>`;
   st.insertBefore(cover,$('#touch'));
