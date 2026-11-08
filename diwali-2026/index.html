@@ -172,7 +172,7 @@ async function threeVersion(){
   if('letterSpacing' in x) x.letterSpacing='8px';
   x.fillText('A DIWALI WISH',540,400);
   if('letterSpacing' in x) x.letterSpacing='0px';
-  x.fillStyle='#1B1A16'; x.font="300 100px 'Bai Jamjuree'"; x.fillText('for you',540,525); x.fillText('and your family',540,640);
+  x.fillStyle='#1B1A16'; x.font="300 112px 'Bai Jamjuree'"; x.fillText('for you',540,530); x.fillText('and your family',540,655);
   const cardTex=texLoader(cc); const sealTex=texLoader(sealImg);
 
   // ── the card: two pages that bend as they turn
@@ -229,7 +229,7 @@ async function threeVersion(){
       float band=(1.-abs(e*2.-1.))*glow;            // a warm edge where the light is changing
       col+=band*vec3(.45,.30,.12);
       float ed=smoothstep(0.,.035,min(min(vUv.x,1.-vUv.x),min(vUv.y,1.-vUv.y)));
-      col*=mix(.25,1.,dim)*ed;
+      col*=dim*dim*ed;
       float al=1.;
       ${useMask?'al=texture2D(m,vUv).r;':''}
       gl_FragColor=vec4(col,al);
