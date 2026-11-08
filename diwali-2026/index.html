@@ -10,7 +10,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Layer 1">
 <meta property="og:title" content="Happy Diwali">
-<meta property="og:description" content="A little light for you. Tap to open.">
+<meta property="og:description" content="Tap to receive our Diwali greetings.">
 <meta property="og:image" content="https://d2ol7oe51mr4n9.cloudfront.net/user_3KBdapm6RLFCt8hz0uFJiAxm6LA/98552884-e5c7-4950-9629-29cb0d19c260.jpg">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
@@ -41,7 +41,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 #loader{position:absolute;inset:0;display:grid;place-items:center;background:#ece0c6;z-index:5;transition:opacity .8s}
 #loader i{width:38px;height:38px;border-radius:50%;border:1.5px solid rgba(142,106,21,.35);border-top-color:var(--bronze);animation:spin 1.1s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-#touch{position:absolute;left:0;right:0;bottom:calc(10% + env(safe-area-inset-bottom));text-align:center;font-size:13px;font-weight:400;letter-spacing:.26em;text-transform:uppercase;color:var(--bronze);opacity:0;pointer-events:none;z-index:6}
+#touch{position:absolute;left:0;right:0;bottom:calc(10% + env(safe-area-inset-bottom));text-align:center;font-size:15px;font-weight:400;letter-spacing:.05em;color:var(--bronze);opacity:0;pointer-events:none;z-index:6}
 #hit{position:absolute;inset:0;z-index:7;cursor:pointer;display:none}
 
 /* the greeting, over the courtyard */
@@ -74,7 +74,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 <div id="stage">
  <canvas id="gl" aria-hidden="true"></canvas>
  <div id="loader"><i></i></div>
- <div id="touch">Touch to open</div>
+ <div id="touch">Tap to receive our Diwali greetings</div>
  <div id="hit" role="button" tabindex="0" aria-label="A Diwali wish for you and your family. Touch to open."></div>
 
  <div id="ui">
@@ -183,7 +183,7 @@ async function threeVersion(){
   x.drawImage(cardImg,0,0,1080,1910);
   x.textAlign='center'; x.fillStyle='#8E6A15'; x.font="400 42px 'Bai Jamjuree'";
   if('letterSpacing' in x) x.letterSpacing='8px';
-  x.fillText('A DIWALI WISH',540,400);
+  x.fillText('WITH OUR WARMEST WISHES',540,400);
   if('letterSpacing' in x) x.letterSpacing='0px';
   x.fillStyle='#1B1A16'; x.font="300 112px 'Bai Jamjuree'"; x.fillText('for you',540,530); x.fillText('and your family',540,655);
   const cardTex=texLoader(cc); const sealTex=texLoader(sealImg);
@@ -305,7 +305,7 @@ async function threeVersion(){
   function frameCard(){
     const eL=shapePage(L), eR=shapePage(R);
     // the seal is fixed to the left page's edge and presses across onto the right page
-    const sw=seal.scale.x, off=sw*.2;
+    const sw=seal.scale.x, off=0; // centred on the fold, fixed to the left page
     const th=eL.th;
     seal.position.set(eL.x+Math.cos(th)*off, -CH*.07, eL.z+Math.sin(th)*off+.004+S.lift*.05);
     seal.rotation.set(0,-th,0); seal.rotateY(-S.peel); seal.scale.setScalar(sw*(1-S.press*.05)); seal.scale.z=1;
@@ -415,7 +415,7 @@ function plainVersion(){
   const bg=document.createElement('div'); bg.style.cssText='position:absolute;inset:0;background:#141a2e center/cover no-repeat;transition:opacity 1.2s';
   st.insertBefore(bg,st.firstChild); if(window.__fallback) return; window.__ready=true;
   const cover=document.createElement('div'); cover.style.cssText=`position:absolute;inset:0;z-index:4;background:#efe3c9 url(${CDN+A.card}) center/cover no-repeat;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .9s`;
-  cover.innerHTML=`<div style="color:#8E6A15;font-weight:400;font-size:13px;letter-spacing:.26em;margin-top:-40%">A DIWALI WISH</div><div style="color:#1B1A16;font-size:36px;text-align:center;line-height:1.15;margin-top:12px">for you<br>and your family</div><div style="width:150px;height:150px;margin-top:9vh;background:url(${CDN+A.seal}) center/contain no-repeat"></div>`;
+  cover.innerHTML=`<div style="color:#8E6A15;font-weight:400;font-size:13px;letter-spacing:.26em;margin-top:-40%">WITH OUR WARMEST WISHES</div><div style="color:#1B1A16;font-size:36px;text-align:center;line-height:1.15;margin-top:12px">for you<br>and your family</div><div style="width:150px;height:150px;margin-top:9vh;background:url(${CDN+A.seal}) center/contain no-repeat"></div>`;
   st.insertBefore(cover,$('#touch'));
   $('#loader').remove(); $('#touch').style.opacity=1; $('#hit').style.display='block';
   const show=i=>{ bg.style.backgroundImage=`url(${CDN+F[i].img})`; setText(i,!!G); };
