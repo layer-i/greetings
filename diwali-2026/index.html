@@ -402,7 +402,7 @@ async function threeVersion(){
 
   async function open(){
     if(opened)return; opened=true; $('#hit').style.display='none';
-    try{ const d=document.documentElement, rf=d.requestFullscreen||d.webkitRequestFullscreen; if(rf&&!document.fullscreenElement){ const r=rf.call(d,{navigationUI:'hide'}); r&&r.catch&&r.catch(()=>{}); } }catch(e){}
+    try{ const d=document.documentElement, rf=d.requestFullscreen||d.webkitRequestFullscreen; if(rf&&!TEST&&!document.fullscreenElement){ const r=rf.call(d,{navigationUI:'hide'}); r&&r.catch&&r.catch(()=>{}); } }catch(e){}
     await courtDone.catch(()=>{});
     try{ if(typeof DeviceOrientationEvent!=='undefined'&&DeviceOrientationEvent.requestPermission) DeviceOrientationEvent.requestPermission().catch(()=>{}); }catch(e){}
     if(!G){ L.angle=2.9; R.angle=2.9; S.cam=1; S.dimUp=1; card.visible=seal.visible=false; showUI(); return; }
