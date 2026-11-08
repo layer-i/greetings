@@ -56,7 +56,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 #msg h1{font-weight:300;font-size:clamp(34px,10vw,50px);line-height:1.08;letter-spacing:.01em}
 #msg p{font-size:clamp(14px,4vw,17px);line-height:1.55;margin-top:.5em;color:rgba(241,234,218,.9)}
 #dock{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;gap:10px;padding:26px 14px calc(14px + env(safe-area-inset-bottom));background:linear-gradient(180deg,rgba(10,8,6,0),rgba(10,8,6,.5));pointer-events:auto}
-#hint{position:absolute;left:0;right:0;bottom:calc(84px + env(safe-area-inset-bottom));text-align:center;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--warm);opacity:0;text-shadow:0 1px 8px rgba(0,0,0,.9),0 0 2px rgba(0,0,0,.9)}
+#hint{position:absolute;left:0;right:0;bottom:calc(80px + env(safe-area-inset-bottom));text-align:center;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--warm);opacity:0;text-shadow:0 1px 8px rgba(0,0,0,.9),0 0 2px rgba(0,0,0,.9)}
 #days{flex:1;display:flex;justify-content:space-around;align-items:center;height:56px;border-radius:999px;background:rgba(18,14,9,.45);border:1px solid rgba(240,206,120,.2);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
 #days button{width:44px;height:52px;display:grid;place-items:center;position:relative}
 #days button .ic{width:28px;height:28px;background-image:var(--icons);background-size:500% 100%;background-repeat:no-repeat;opacity:.62;transform-origin:50% 70%;will-change:transform}
@@ -253,7 +253,7 @@ async function threeVersion(){
       float ed=smoothstep(0.,.02,min(min(vUv.x,1.-vUv.x),min(vUv.y,1.-vUv.y)));
       vec3 ink=vec3(.0075,.006,.004);
       float al=1.;
-      ${useMask?'al=texture2D(m,vUv).r;':'col=mix(ink,col,ed);'}
+      ${useMask?'al=texture2D(m,vUv).r*smoothstep(0.,.025,vUv.y);':'col=mix(ink,col,ed);'}
       col=mix(ink,col,dim*dim);
       gl_FragColor=vec4(col,al);
       #include <colorspace_fragment>
@@ -328,8 +328,11 @@ async function threeVersion(){
     const arC=1080/1935;
     const fit=(z,extra)=>{ const h=visH(Z.cam1-z), w=h*camera.aspect; const hh=Math.max(h,w/arC)*extra; return [hh*arC,hh]; };
     // full bleed: each layer covers the screen, with a little room for the tilt
-    let [w1,h1]=fit(Z.bld,1.05); bld.scale.set(w1,h1,1); bld.position.y=0;
-    let [w2,h2]=fit(Z.sky,1.08); sky.scale.set(w2,h2,1); sky.position.y=0;
+    // full width, hung from the top; on tall phones it stops above the bar so the rangoli and the pool stay clear
+    const dk=$('#dock').getBoundingClientRect(), freeB=Math.min(.16,(dk.height-12)/H);
+    const hang=(z,extra)=>{ const Hv=visH(Z.cam1-z), Wv=Hv*camera.aspect; const hh=Math.max(Hv*(1-freeB), Wv/arC)*extra; return [hh*arC,hh,Hv/2-hh/2+Hv*.004]; };
+    let [w1,h1,y1]=hang(Z.bld,1.02); bld.scale.set(w1,h1,1); bld.position.y=y1;
+    let [w2,h2,y2]=hang(Z.sky,1.04); sky.scale.set(w2,h2,1); sky.position.y=y2;
     const sw=Math.min(CW*.36,.62); seal.scale.set(sw,sw,1); sealShadow.scale.set(sw*.98,sw*.98,1);
   }
   addEventListener('resize',layout); layout();
